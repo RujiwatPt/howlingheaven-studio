@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { PawPrint } from 'lucide-react';
+import { Mail, PawPrint } from 'lucide-react';
 
 interface ContactSectionProps {
   onOpenContactModal: () => void;
@@ -32,7 +32,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenContactMod
               Ready to build something <span className="text-gold-gradient">unforgettable?</span>
             </h2>
             <p className="text-xs sm:text-sm text-slate-300">
-              Let&apos;s create your next adventure together.
+              Reach out directly to <a href="mailto:gdulahan@gmail.com" className="text-amber-300 underline font-semibold">gdulahan@gmail.com</a> & <a href="mailto:rujiwatpt@gmail.com" className="text-amber-300 underline font-semibold">rujiwatpt@gmail.com</a>
             </p>
           </div>
 
@@ -42,8 +42,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenContactMod
               onClick={onOpenContactModal}
               className="group px-7 py-3 rounded border border-amber-500/50 hover:border-amber-400 bg-slate-950/80 hover:bg-amber-500/10 text-amber-300 font-semibold text-xs tracking-widest uppercase transition-all duration-300 inline-flex items-center gap-2 shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_30px_rgba(212,175,55,0.5)]"
             >
+              <Mail className="w-4 h-4 text-amber-400" />
               <span>CONTACT US</span>
-              <PawPrint className="w-4 h-4 fill-amber-300 group-hover:scale-105 transition-transform" />
             </button>
           </div>
 

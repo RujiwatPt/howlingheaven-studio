@@ -62,11 +62,11 @@ function Starfield() {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.12}
+        size={0.05}
         color="#FFF9E6"
         map={circleTexture || undefined}
         transparent
-        opacity={0.9}
+        opacity={0.85}
         depthWrite={false}
         blending={THREE.AdditiveBlending}
       />
@@ -115,11 +115,11 @@ function FloatingEmbers() {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.12}
+        size={0.05}
         color="#F5D061"
         map={circleTexture || undefined}
         transparent
-        opacity={0.8}
+        opacity={0.7}
         depthWrite={false}
         blending={THREE.AdditiveBlending}
       />
@@ -150,7 +150,8 @@ export default function CelestialCanvas() {
     <div className="fixed inset-0 pointer-events-none z-[1] overflow-hidden">
       <Canvas
         camera={{ position: [0, 0, 22], fov: 60 }}
-        gl={{ antialias: true, alpha: true }}
+        dpr={[1, 1.5]}
+        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
         style={{ width: '100vw', height: '100vh', background: 'transparent' }}
       >
         <ambientLight intensity={0.3} />

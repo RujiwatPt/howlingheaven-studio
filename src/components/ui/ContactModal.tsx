@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { X, PawPrint, CheckCircle2 } from 'lucide-react';
+import { X, Mail, Send, CheckCircle2 } from 'lucide-react';
 import { Logo } from '@/components/brand/Logo';
 
 interface ContactModalProps {
@@ -10,8 +10,6 @@ interface ContactModalProps {
 }
 
 export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
-  const [selectedServices, setSelectedServices] = useState<string[]>(['Web Development']);
-  const [selectedBudget, setSelectedBudget] = useState<string>('$10,000 - $25,000');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -19,31 +17,22 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
 
   if (!isOpen) return null;
 
-  const servicesList = [
-    'Visual Novel',
-    'Chatbot Application',
-    'Web Development',
-    'AI Solution',
-  ];
-
-  const budgetTiers = [
-    '< $10,000',
-    '$10,000 - $25,000',
-    '$25,000 - $50,000',
-    '$50,000+',
-  ];
-
-  const toggleService = (srv: string) => {
-    if (selectedServices.includes(srv)) {
-      setSelectedServices(selectedServices.filter((s) => s !== srv));
-    } else {
-      setSelectedServices([...selectedServices, srv]);
-    }
-  };
+  const primaryEmail = 'gdulahan@gmail.com';
+  const secondaryEmail = 'rujiwatpt@gmail.com';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
+
+    // Prepare mailto link for direct client dispatch
+    const subject = encodeURIComponent(`Inquiry from ${name || 'Website Visitor'}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+    const mailtoUrl = `mailto:${primaryEmail}?cc=${secondaryEmail}&subject=${subject}&body=${body}`;
+
+    // Trigger user mail client if supported
+    setTimeout(() => {
+      window.location.href = mailtoUrl;
+    }, 500);
   };
 
   const resetForm = () => {
@@ -53,7 +42,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto">
-      <div className="relative w-full max-w-xl my-8 rounded-xl studio-card p-6 sm:p-8 border border-amber-500/40 shadow-2xl animate-in fade-in zoom-in duration-200">
+      <div className="relative w-full max-w-lg my-8 rounded-xl studio-card p-6 sm:p-8 border border-amber-500/40 shadow-2xl animate-in fade-in zoom-in duration-200">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -72,99 +61,62 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                   REACH OUT TO US
                 </span>
                 <h3 className="text-xl font-bold text-white font-serif-title">
-                  Start Your Project
+                  Send Us a Message
                 </h3>
               </div>
             </div>
 
-            {/* Select Services */}
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-amber-400 mb-2">
-                1. Select Services
-              </label>
-              <div className="grid grid-cols-2 gap-2">
-                {servicesList.map((srv) => {
-                  const active = selectedServices.includes(srv);
-                  return (
-                    <button
-                      type="button"
-                      key={srv}
-                      onClick={() => toggleService(srv)}
-                      className={`px-3 py-2 rounded text-xs font-medium text-left transition-all ${
-                        active
-                          ? 'bg-amber-500 text-slate-950 font-bold shadow'
-                          : 'bg-slate-900 text-slate-300 border border-slate-800 hover:border-amber-500/40'
-                      }`}
-                    >
-                      {active && '✓ '} {srv}
-                    </button>
-                  );
-                })}
+            {/* Direct Email Callout */}
+            <div className="p-3 rounded bg-slate-900/90 border border-slate-800 text-xs text-slate-300 space-y-1">
+              <span className="text-amber-400 font-semibold flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5" /> Direct Studio Email:
+              </span>
+              <div className="flex flex-wrap gap-2 text-[11px] font-mono text-amber-200">
+                <a href={`mailto:${primaryEmail}`} className="underline hover:text-white">{primaryEmail}</a>
+                <span>•</span>
+                <a href={`mailto:${secondaryEmail}`} className="underline hover:text-white">{secondaryEmail}</a>
               </div>
             </div>
 
-            {/* Budget Range */}
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-amber-400 mb-2">
-                2. Estimated Budget
-              </label>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                {budgetTiers.map((tier) => (
-                  <button
-                    type="button"
-                    key={tier}
-                    onClick={() => setSelectedBudget(tier)}
-                    className={`py-1.5 px-2 rounded text-xs font-medium text-center transition-all ${
-                      selectedBudget === tier
-                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500'
-                        : 'bg-slate-900 text-slate-400 border border-slate-800 hover:text-slate-200'
-                    }`}
-                  >
-                    {tier}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* User Details */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
-                  Your Name *
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Alex Morgan"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:border-amber-400"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  required
-                  placeholder="alex@studio.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:border-amber-400"
-                />
-              </div>
-            </div>
-
-            {/* Project Brief */}
+            {/* Name */}
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1">
-                Project Overview
+                Your Name *
+              </label>
+              <input
+                type="text"
+                required
+                placeholder="e.g. Alex Morgan"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full px-3.5 py-2 rounded bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:border-amber-400"
+              />
+            </div>
+
+            {/* Email */}
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">
+                Your Email Address *
+              </label>
+              <input
+                type="email"
+                required
+                placeholder="alex@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-3.5 py-2 rounded bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:border-amber-400"
+              />
+            </div>
+
+            {/* Message */}
+            <div>
+              <label className="block text-xs font-semibold text-slate-300 mb-1">
+                Message / Inquiry *
               </label>
               <textarea
-                rows={3}
-                placeholder="Share your goals, timeline, or story idea..."
+                rows={4}
+                required
+                placeholder="Write your message here..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 className="w-full px-3.5 py-2 rounded bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:border-amber-400 resize-none"
@@ -174,10 +126,10 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
             {/* Submit CTA */}
             <button
               type="submit"
-              className="w-full py-3 rounded bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-slate-950 font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg"
+              className="w-full py-3 rounded bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-slate-950 font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg hover:scale-[1.01] transition-all"
             >
-              <span>SEND PROJECT BRIEF</span>
-              <PawPrint className="w-4 h-4 fill-slate-950" />
+              <span>SEND EMAIL</span>
+              <Send className="w-3.5 h-3.5" />
             </button>
           </form>
         ) : (
@@ -189,13 +141,13 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
 
             <div className="space-y-1">
               <span className="text-xs font-semibold tracking-[0.2em] uppercase text-amber-300">
-                BRIEF RECEIVED 🐾
+                MESSAGE SENT 🐾
               </span>
               <h3 className="text-2xl font-bold text-white font-serif-title">
-                Thank You, {name || 'Partner'}!
+                Thank You, {name || 'Friend'}!
               </h3>
               <p className="text-xs text-slate-300 max-w-sm mx-auto leading-relaxed">
-                Our creative team is reviewing your brief. We will reach out to <span className="text-amber-300 font-semibold">{email}</span> shortly.
+                Your message has been prepared for <span className="text-amber-300 font-semibold">{primaryEmail}</span> & <span className="text-amber-300 font-semibold">{secondaryEmail}</span>. We will respond promptly!
               </p>
             </div>
 
