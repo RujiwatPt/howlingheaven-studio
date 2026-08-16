@@ -15,8 +15,8 @@ function createCircleTexture() {
 
   const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
   gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-  gradient.addColorStop(0.4, 'rgba(255, 255, 255, 0.9)');
-  gradient.addColorStop(0.8, 'rgba(255, 255, 255, 0.3)');
+  gradient.addColorStop(0.35, 'rgba(255, 255, 255, 0.9)');
+  gradient.addColorStop(0.7, 'rgba(255, 255, 255, 0.35)');
   gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
 
   ctx.fillStyle = gradient;
@@ -29,27 +29,38 @@ function createCircleTexture() {
   return texture;
 }
 
-// Pinpoint Starfield (Smooth Round Circles)
+// Deterministic PRNG to maintain purity in React hooks
+function createPRNG(seed: number) {
+  let s = seed % 2147483647;
+  if (s <= 0) s += 2147483646;
+  return () => {
+    s = (s * 16807) % 2147483647;
+    return (s - 1) / 2147483646;
+  };
+}
+
+// Dense Background Starfield (Deep galaxy field with high star count)
 function Starfield() {
   const pointsRef = useRef<THREE.Points>(null!);
-  const count = 2600;
+  const count = 6500; // Increased star density
 
   const circleTexture = useMemo(() => createCircleTexture(), []);
 
   const [positions] = useMemo(() => {
+    const random = createPRNG(42);
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 90;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 70;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 50 - 5;
+      pos[i * 3] = (random() - 0.5) * 110;
+      pos[i * 3 + 1] = (random() - 0.5) * 85;
+      pos[i * 3 + 2] = (random() - 0.5) * 60 - 5;
     }
     return [pos];
   }, [count]);
 
   useFrame((state, delta) => {
     if (pointsRef.current) {
-      pointsRef.current.rotation.y += delta * 0.015;
-      pointsRef.current.rotation.x += delta * 0.005;
+      pointsRef.current.rotation.y += delta * 0.012;
+      pointsRef.current.rotation.x += delta * 0.004;
     }
   });
 
@@ -62,11 +73,57 @@ function Starfield() {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.05}
+        size={0.055}
         color="#FFF9E6"
         map={circleTexture || undefined}
         transparent
-        opacity={0.85}
+        opacity={0.88}
+        depthWrite={false}
+        blending={THREE.AdditiveBlending}
+      />
+    </points>
+  );
+}
+
+// Brighter foreground celestial stars
+function BrightStars() {
+  const pointsRef = useRef<THREE.Points>(null!);
+  const count = 1200;
+
+  const circleTexture = useMemo(() => createCircleTexture(), []);
+
+  const [positions] = useMemo(() => {
+    const random = createPRNG(1337);
+    const pos = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      pos[i * 3] = (random() - 0.5) * 90;
+      pos[i * 3 + 1] = (random() - 0.5) * 70;
+      pos[i * 3 + 2] = (random() - 0.5) * 45;
+    }
+    return [pos];
+  }, [count]);
+
+  useFrame((state, delta) => {
+    if (pointsRef.current) {
+      pointsRef.current.rotation.y += delta * 0.018;
+      pointsRef.current.rotation.x += delta * 0.006;
+    }
+  });
+
+  return (
+    <points ref={pointsRef}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          args={[positions, 3]}
+        />
+      </bufferGeometry>
+      <pointsMaterial
+        size={0.09}
+        color="#FFEAA7"
+        map={circleTexture || undefined}
+        transparent
+        opacity={0.95}
         depthWrite={false}
         blending={THREE.AdditiveBlending}
       />
@@ -77,16 +134,17 @@ function Starfield() {
 // Delicate Floating Embers (Smooth Round Golden Circles)
 function FloatingEmbers() {
   const embersRef = useRef<THREE.Points>(null!);
-  const count = 300;
+  const count = 400;
 
   const circleTexture = useMemo(() => createCircleTexture(), []);
 
   const positions = useMemo(() => {
+    const random = createPRNG(999);
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 60;
-      pos[i * 3 + 1] = Math.random() * 50 - 25;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 40;
+      pos[i * 3] = (random() - 0.5) * 60;
+      pos[i * 3 + 1] = random() * 50 - 25;
+      pos[i * 3 + 2] = (random() - 0.5) * 40;
     }
     return pos;
   }, [count]);
@@ -95,7 +153,7 @@ function FloatingEmbers() {
     if (embersRef.current) {
       const array = embersRef.current.geometry.attributes.position.array as Float32Array;
       for (let i = 0; i < count; i++) {
-        array[i * 3 + 1] += delta * (0.8 + Math.random() * 0.4);
+        array[i * 3 + 1] += delta * (0.8 + ((i % 5) * 0.1));
         array[i * 3] += Math.sin(state.clock.elapsedTime * 1.2 + i) * 0.008;
 
         if (array[i * 3 + 1] > 25) {
@@ -115,11 +173,11 @@ function FloatingEmbers() {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.05}
+        size={0.055}
         color="#F5D061"
         map={circleTexture || undefined}
         transparent
-        opacity={0.7}
+        opacity={0.75}
         depthWrite={false}
         blending={THREE.AdditiveBlending}
       />
@@ -156,6 +214,7 @@ export default function CelestialCanvas() {
       >
         <ambientLight intensity={0.3} />
         <Starfield />
+        <BrightStars />
         <FloatingEmbers />
         <SceneRig />
       </Canvas>

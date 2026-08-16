@@ -38,9 +38,9 @@ export default function Home() {
           }}
         />
 
+        <AboutSection onOpenAboutModal={handleOpenContact} />
         <ServicesSection />
         <ProductSection />
-        <AboutSection onOpenAboutModal={handleOpenContact} />
         <ContactSection onOpenContactModal={handleOpenContact} />
         <Footer />
       </div>
