@@ -32,7 +32,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenContactMod
               Ready to build something <span className="text-gold-gradient">unforgettable?</span>
             </h2>
             <p className="text-xs sm:text-sm text-slate-300">
-              Reach out directly to <a href="mailto:gdulahan@gmail.com" className="text-amber-300 underline font-semibold">gdulahan@gmail.com</a> & <a href="mailto:rujiwatpt@gmail.com" className="text-amber-300 underline font-semibold">rujiwatpt@gmail.com</a>
+              Reach out directly to <a href="mailto:gdulahan@gmail.com" className="text-amber-300 underline font-semibold">gdulahan@gmail.com</a>
             </p>
           </div>
 

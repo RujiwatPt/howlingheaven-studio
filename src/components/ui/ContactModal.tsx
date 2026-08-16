@@ -18,7 +18,6 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
   if (!isOpen) return null;
 
   const primaryEmail = 'gdulahan@gmail.com';
-  const secondaryEmail = 'rujiwatpt@gmail.com';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +26,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
     // Prepare mailto link for direct client dispatch
     const subject = encodeURIComponent(`Inquiry from ${name || 'Website Visitor'}`);
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-    const mailtoUrl = `mailto:${primaryEmail}?cc=${secondaryEmail}&subject=${subject}&body=${body}`;
+    const mailtoUrl = `mailto:${primaryEmail}?subject=${subject}&body=${body}`;
 
     // Trigger user mail client if supported
     setTimeout(() => {
@@ -73,8 +72,6 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               </span>
               <div className="flex flex-wrap gap-2 text-[11px] font-mono text-amber-200">
                 <a href={`mailto:${primaryEmail}`} className="underline hover:text-white">{primaryEmail}</a>
-                <span>•</span>
-                <a href={`mailto:${secondaryEmail}`} className="underline hover:text-white">{secondaryEmail}</a>
               </div>
             </div>
 
@@ -147,7 +144,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 Thank You, {name || 'Friend'}!
               </h3>
               <p className="text-xs text-slate-300 max-w-sm mx-auto leading-relaxed">
-                Your message has been prepared for <span className="text-amber-300 font-semibold">{primaryEmail}</span> & <span className="text-amber-300 font-semibold">{secondaryEmail}</span>. We will respond promptly!
+                Your message has been prepared for <span className="text-amber-300 font-semibold">{primaryEmail}</span>. We will respond promptly!
               </p>
             </div>
 
