@@ -5,11 +5,13 @@ import Image from 'next/image';
 import { PORTFOLIO_PROJECTS, PortfolioProject } from '@/lib/data';
 import { Sparkles, ChevronRight, X, ExternalLink, Tag } from 'lucide-react';
 
+type FilterKey = 'all' | 'games' | 'branding' | 'cinematic' | 'web';
+
 export const PortfolioSection: React.FC = () => {
-  const [activeFilter, setActiveFilter] = useState<'all' | 'games' | 'branding' | 'cinematic' | 'web'>('all');
+  const [activeFilter, setActiveFilter] = useState<FilterKey>('all');
   const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
 
-  const filterTabs = [
+  const filterTabs: { key: FilterKey; label: string }[] = [
     { key: 'all', label: 'ALL WORKS' },
     { key: 'games', label: 'GAME ART' },
     { key: 'branding', label: 'BRANDING' },
@@ -45,7 +47,7 @@ export const PortfolioSection: React.FC = () => {
           {filterTabs.map((tab) => (
             <button
               key={tab.key}
-              onClick={() => setActiveFilter(tab.key as any)}
+              onClick={() => setActiveFilter(tab.key)}
               className={`px-5 py-2 rounded-full text-xs font-semibold tracking-widest uppercase transition-all duration-300 ${
                 activeFilter === tab.key
                   ? 'bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 shadow-[0_0_20px_rgba(212,175,55,0.4)]'
@@ -192,10 +194,22 @@ export const PortfolioSection: React.FC = () => {
               </div>
 
               {/* Footer CTA */}
-              <div className="pt-4 flex justify-end">
+              <div className="pt-4 flex items-center justify-between gap-4">
+                {selectedProject.url ? (
+                  <a
+                    href={selectedProject.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-md bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:scale-[1.02] transition-transform"
+                  >
+                    <span>Launch Project</span>
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                ) : <div />}
+
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="px-6 py-2.5 rounded-md bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(212,175,55,0.3)]"
+                  className="px-6 py-2.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs uppercase tracking-wider transition-colors"
                 >
                   Close Showcase
                 </button>
