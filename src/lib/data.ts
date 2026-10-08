@@ -95,7 +95,16 @@ export const NEW_SERVICES_DATA: ServiceItem[] = [
     fullDesc: 'Modern web applications engineered with Next.js, Three.js 3D graphics, seamless micro-interactions, and edge-server deployments.',
     iconName: 'Code',
     deliverables: ['3D Web Canvas Experiences', 'Full-Stack Web App Development', 'Design System Architecture', 'Cloudflare Worker Deployment', 'SEO & CWV Optimization'],
-    tools: ['Next.js', 'React', 'Three.js', 'Tailwind CSS', 'TypeScript', 'Cloudflare']
+    tools: ['Next.js', 'React', 'Three.js', 'Tailwind CSS', 'TypeScript', 'Cloudflare'],
+    featuredWork: {
+      title: 'BeastForge',
+      subtitle: 'RPG Character Generator & Portrait Studio',
+      description: 'An interactive beastman character generator with 9 distinct species, modular gear layers, expression morphs, and export-ready RPG assets.',
+      image: '/images/beastforge_preview.png',
+      url: 'https://beastforge.howlingheaven.com/',
+      urlLabel: 'Launch BeastForge',
+      tags: ['Character Studio', 'RPG Maker MV', 'Pixel Art', 'Web App']
+    }
   },
   {
     id: 'ai-solution',
@@ -144,6 +153,21 @@ export const FEATURED_CHARACTERS: CharacterCard[] = [
 ];
 
 export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
+  {
+    id: 'beastforge',
+    title: 'BeastForge',
+    category: 'RPG Character Generator & Studio',
+    categoryKey: 'games',
+    image: '/images/beastforge_preview.png',
+    description: 'A beastman character generator and portrait studio built with RPG Maker MV asset spec compatibility, custom species layers, and animated previews.',
+    challenge: 'Build a modular, browser-based character generation engine capable of layering species, manes, horns, gear, and expression morphs in real-time.',
+    solution: 'Engineered a high-performance canvas composite renderer with multi-palette swaps, animated state preview, and one-click asset export.',
+    impact: 'Used by RPG developers and roleplayers to generate customized beastman portraits and RPG cards instantly.',
+    tags: ['Character Studio', 'RPG Maker MV', 'Pixel Art', 'Game Tool', 'TypeScript'],
+    year: '2026',
+    client: 'Howling Heaven Studio',
+    url: 'https://beastforge.howlingheaven.com/'
+  },
   {
     id: 'three-souls',
     title: 'Three Souls, One Heart',

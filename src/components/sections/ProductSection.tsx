@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ExternalLink, Feather, MessageSquare, Globe, Heart, BookOpen, Sparkles } from 'lucide-react';
+import { ExternalLink, Feather, MessageSquare, Globe, Heart, BookOpen, Sparkles, Palette, Layers, Sliders } from 'lucide-react';
 
 interface ProductItem {
   id: string;
@@ -19,6 +19,24 @@ interface ProductItem {
 }
 
 const PRODUCTS: ProductItem[] = [
+  {
+    id: 'beastforge',
+    badge: '🐾 OUR RPG CHARACTER STUDIO',
+    title: 'BeastForge',
+    subtitle: 'Beastman Character Generator & Portrait Studio',
+    description: 'An interactive character generator built for RPG developers and creators. Layer 9 unique beastman species, dynamic expression morphs, custom gear, and export battle-ready portraits.',
+    appUrl: 'https://beastforge.howlingheaven.com/',
+    ctaText: 'LAUNCH BEASTFORGE STUDIO',
+    image: '/images/beastforge_preview.png',
+    imageAlt: 'BeastForge RPG Maker Beastman Character Studio Interface',
+    bannerText: 'BeastForge Live Web Application',
+    features: [
+      { icon: Palette, text: '9 distinct beast tribes with customizable manes & horns' },
+      { icon: Sliders, text: 'Real-time expression morphs & animated state previews' },
+      { icon: Layers, text: 'Class presets, gear layering & custom RPG cards' },
+      { icon: Globe, text: 'Ready-to-use portrait exports for RPG Maker MV & games' },
+    ],
+  },
   {
     id: 'three-souls',
     badge: '🐾 OUR FEATURED VISUAL NOVEL',
