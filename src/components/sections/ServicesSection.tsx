@@ -1,22 +1,35 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import { NEW_SERVICES_DATA, ServiceItem } from '@/lib/data';
 import { BookOpen, MessageSquare, Code, Brain, X, CheckCircle2, ExternalLink, Sparkles } from 'lucide-react';
 
 export const ServicesSection: React.FC = () => {
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
+  const [mounted, setMounted] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
     if (selectedService) {
       document.body.style.overflow = 'hidden';
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          setSelectedService(null);
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = 'unset';
+        window.removeEventListener('keydown', handleKeyDown);
+      };
     } else {
       document.body.style.overflow = 'unset';
     }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
   }, [selectedService]);
 
   const getIcon = (iconName: string) => {
@@ -33,6 +46,124 @@ export const ServicesSection: React.FC = () => {
         return Code;
     }
   };
+
+  const modalContent = selectedService && (
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          setSelectedService(null);
+        }
+      }}
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 bg-[#05070B]/90 backdrop-blur-xl overflow-y-auto cursor-pointer"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-3xl my-auto rounded-2xl bg-[#090C14] p-6 sm:p-8 border border-amber-500/40 shadow-[0_25px_70px_rgba(0,0,0,0.95)] animate-in fade-in zoom-in duration-200 cursor-default"
+      >
+        <button
+          type="button"
+          onClick={() => setSelectedService(null)}
+          className="absolute top-5 right-5 z-10 p-2 rounded-lg bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800 transition-colors cursor-pointer"
+          aria-label="Close dialog"
+        >
+          <X className="w-4 h-4" />
+        </button>
+
+        <div className="space-y-6">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-lg bg-amber-500 text-slate-950 flex items-center justify-center font-bold flex-shrink-0">
+              {React.createElement(getIcon(selectedService.iconName), { className: 'w-6 h-6' })}
+            </div>
+            <div>
+              <span className="text-[10px] uppercase tracking-[0.25em] text-amber-300 font-semibold block">
+                SERVICE CAPABILITY
+              </span>
+              <h3 className="text-xl sm:text-2xl font-bold text-white font-serif-title">
+                {selectedService.title}
+              </h3>
+            </div>
+          </div>
+
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed border-b border-slate-800 pb-4">
+            {selectedService.fullDesc}
+          </p>
+
+          {/* Featured Work Showcase if available */}
+          {selectedService.featuredWork && (
+            <div className="rounded-xl bg-slate-900/90 border border-amber-500/30 p-4 sm:p-5 space-y-4">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400 flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5" /> Featured Work & Case Study
+                </span>
+                <span className="text-[10px] text-slate-400 font-medium">Live Release</span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
+                <div className="sm:col-span-5 relative h-40 w-full rounded-lg overflow-hidden border border-amber-500/20">
+                  <Image
+                    src={selectedService.featuredWork.image}
+                    alt={selectedService.featuredWork.title}
+                    fill
+                    className="object-cover object-center"
+                  />
+                </div>
+
+                <div className="sm:col-span-7 space-y-2">
+                  <h4 className="text-base font-bold text-white font-serif-title">
+                    {selectedService.featuredWork.title}
+                  </h4>
+                  <p className="text-xs text-amber-300 font-medium">
+                    {selectedService.featuredWork.subtitle}
+                  </p>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    {selectedService.featuredWork.description}
+                  </p>
+                  <div className="pt-2">
+                    <a
+                      href={selectedService.featuredWork.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow hover:scale-[1.02] transition-transform cursor-pointer"
+                    >
+                      <span>{selectedService.featuredWork.urlLabel}</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-2 flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              Key Deliverables
+            </h4>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-300">
+              {selectedService.deliverables.map((item, idx) => (
+                <li key={idx} className="flex items-center gap-2 bg-slate-900/80 p-2 rounded border border-slate-800">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="pt-2 flex justify-end">
+            <button
+              type="button"
+              onClick={() => setSelectedService(null)}
+              className="px-6 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 active:bg-slate-900 text-slate-200 hover:text-white font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer border border-slate-700/60 shadow-md"
+            >
+              Close Window
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <section id="services" className="relative py-24 bg-transparent border-t border-amber-500/10 z-10">
@@ -83,109 +214,9 @@ export const ServicesSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Service Detail Modal */}
-      {selectedService && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-[#05070B]/90 backdrop-blur-xl overflow-y-auto">
-          <div className="relative w-full max-w-3xl my-auto rounded-2xl bg-[#090C14] p-6 sm:p-8 border border-amber-500/40 shadow-[0_25px_70px_rgba(0,0,0,0.95)] animate-in fade-in zoom-in duration-200">
-            <button
-              onClick={() => setSelectedService(null)}
-              className="absolute top-5 right-5 z-10 p-2 rounded bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
-            >
-              <X className="w-4 h-4" />
-            </button>
-
-            <div className="space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-lg bg-amber-500 text-slate-950 flex items-center justify-center font-bold flex-shrink-0">
-                  {React.createElement(getIcon(selectedService.iconName), { className: 'w-6 h-6' })}
-                </div>
-                <div>
-                  <span className="text-[10px] uppercase tracking-[0.25em] text-amber-300 font-semibold block">
-                    SERVICE CAPABILITY
-                  </span>
-                  <h3 className="text-xl sm:text-2xl font-bold text-white font-serif-title">
-                    {selectedService.title}
-                  </h3>
-                </div>
-              </div>
-
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed border-b border-slate-800 pb-4">
-                {selectedService.fullDesc}
-              </p>
-
-              {/* Featured Work Showcase if available */}
-              {selectedService.featuredWork && (
-                <div className="rounded-xl bg-slate-900/90 border border-amber-500/30 p-4 sm:p-5 space-y-4">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400 flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5" /> Featured Work & Case Study
-                    </span>
-                    <span className="text-[10px] text-slate-400 font-medium">Live Release</span>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
-                    <div className="sm:col-span-5 relative h-40 w-full rounded-lg overflow-hidden border border-amber-500/20">
-                      <Image
-                        src={selectedService.featuredWork.image}
-                        alt={selectedService.featuredWork.title}
-                        fill
-                        className="object-cover object-center"
-                      />
-                    </div>
-
-                    <div className="sm:col-span-7 space-y-2">
-                      <h4 className="text-base font-bold text-white font-serif-title">
-                        {selectedService.featuredWork.title}
-                      </h4>
-                      <p className="text-xs text-amber-300 font-medium">
-                        {selectedService.featuredWork.subtitle}
-                      </p>
-                      <p className="text-xs text-slate-300 leading-relaxed">
-                        {selectedService.featuredWork.description}
-                      </p>
-                      <div className="pt-2">
-                        <a
-                          href={selectedService.featuredWork.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-4 py-2 rounded bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow hover:scale-[1.02] transition-transform"
-                        >
-                          <span>{selectedService.featuredWork.urlLabel}</span>
-                          <ExternalLink className="w-3.5 h-3.5" />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-2 flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  Key Deliverables
-                </h4>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-300">
-                  {selectedService.deliverables.map((item, idx) => (
-                    <li key={idx} className="flex items-center gap-2 bg-slate-900/80 p-2 rounded border border-slate-800">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="pt-2 flex justify-end">
-                <button
-                  onClick={() => setSelectedService(null)}
-                  className="px-5 py-2 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs uppercase tracking-wider transition-colors"
-                >
-                  Close Window
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Service Detail Modal rendered via Portal directly to body */}
+      {mounted && modalContent && createPortal(modalContent, document.body)}
     </section>
   );
 };
+

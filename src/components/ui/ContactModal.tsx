@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X, Mail, Send, CheckCircle2 } from 'lucide-react';
 import { Logo } from '@/components/brand/Logo';
 
@@ -14,19 +15,31 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          onClose();
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = 'unset';
+        window.removeEventListener('keydown', handleKeyDown);
+      };
     } else {
       document.body.style.overflow = 'unset';
     }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !mounted) return null;
 
   const primaryEmail = 'gdulahan@gmail.com';
 
@@ -50,13 +63,27 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
     onClose();
   };
 
-  return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-[#05070B]/90 backdrop-blur-xl overflow-y-auto">
-      <div className="relative w-full max-w-lg my-auto rounded-2xl bg-[#090C14] p-6 sm:p-8 border border-amber-500/40 shadow-[0_25px_70px_rgba(0,0,0,0.95)] animate-in fade-in zoom-in duration-200">
+  const modalContent = (
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onClose();
+        }
+      }}
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 bg-[#05070B]/90 backdrop-blur-xl overflow-y-auto cursor-pointer"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-lg my-auto rounded-2xl bg-[#090C14] p-6 sm:p-8 border border-amber-500/40 shadow-[0_25px_70px_rgba(0,0,0,0.95)] animate-in fade-in zoom-in duration-200 cursor-default"
+      >
         {/* Close Button */}
         <button
+          type="button"
           onClick={onClose}
-          className="absolute top-5 right-5 z-10 p-2 rounded bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
+          className="absolute top-5 right-5 z-10 p-2 rounded-lg bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800 transition-colors cursor-pointer"
+          aria-label="Close contact modal"
         >
           <X className="w-4 h-4" />
         </button>
@@ -134,7 +161,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
             {/* Submit CTA */}
             <button
               type="submit"
-              className="w-full py-3 rounded bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-slate-950 font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg hover:scale-[1.01] transition-all"
+              className="w-full py-3 rounded bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-slate-950 font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg hover:scale-[1.01] transition-all cursor-pointer"
             >
               <span>SEND EMAIL</span>
               <Send className="w-3.5 h-3.5" />
@@ -160,8 +187,9 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
             </div>
 
             <button
+              type="button"
               onClick={resetForm}
-              className="px-6 py-2 rounded bg-amber-500 text-slate-950 font-bold text-xs uppercase tracking-wider shadow"
+              className="px-6 py-2 rounded bg-amber-500 text-slate-950 font-bold text-xs uppercase tracking-wider shadow cursor-pointer hover:bg-amber-400 transition-colors"
             >
               Return to Website
             </button>
@@ -170,4 +198,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 };
+

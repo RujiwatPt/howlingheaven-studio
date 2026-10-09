@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ExternalLink, Feather, MessageSquare, Globe, Heart, BookOpen, Sparkles, Palette, Layers, Sliders } from 'lucide-react';
+import { ExternalLink, Feather, MessageSquare, Globe, Heart, BookOpen, Sparkles, Palette, Layers, Sliders, Database, Cpu, Network, Terminal } from 'lucide-react';
 
 interface ProductItem {
   id: string;
@@ -19,6 +19,24 @@ interface ProductItem {
 }
 
 const PRODUCTS: ProductItem[] = [
+  {
+    id: 'memorai',
+    badge: '🐾 OUR AI MEMORY MCP SYSTEM',
+    title: 'Memorai',
+    subtitle: 'Multi-Agent Shared Memory & Communication Server',
+    description: 'A local Model Context Protocol (MCP) server that empowers desktop AI agents (Cursor, Antigravity, Claude, and Codex) to exchange task handoffs, store persistent SQLite memories, and coordinate workflow boards without cloud data leakage.',
+    appUrl: 'https://github.com/RujiwatPt/memorai',
+    ctaText: 'EXPLORE MEMORAI ON GITHUB',
+    image: '/images/memorai_preview.jpg',
+    imageAlt: 'Memorai Multi-Agent Central Memory Dashboard Architecture',
+    bannerText: 'Memorai Open Source MCP Server',
+    features: [
+      { icon: Database, text: 'Local SQLite persistent shared memory & fast contextual retrieval' },
+      { icon: Network, text: 'Direct inter-agent handoffs between Cursor, Antigravity, Claude & Codex' },
+      { icon: Terminal, text: 'Atomic task queue & shared multi-agent project board' },
+      { icon: Cpu, text: '100% local, safe, and anti-ban compliant via official MCP spec' },
+    ],
+  },
   {
     id: 'beastforge',
     badge: '🐾 OUR RPG CHARACTER STUDIO',

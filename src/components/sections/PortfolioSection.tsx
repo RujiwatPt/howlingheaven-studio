@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import { PORTFOLIO_PROJECTS, PortfolioProject } from '@/lib/data';
 import { Sparkles, ChevronRight, X, ExternalLink, Tag } from 'lucide-react';
@@ -10,16 +11,28 @@ type FilterKey = 'all' | 'games' | 'branding' | 'cinematic' | 'web';
 export const PortfolioSection: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<FilterKey>('all');
   const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
+  const [mounted, setMounted] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
     if (selectedProject) {
       document.body.style.overflow = 'hidden';
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          setSelectedProject(null);
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = 'unset';
+        window.removeEventListener('keydown', handleKeyDown);
+      };
     } else {
       document.body.style.overflow = 'unset';
     }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
   }, [selectedProject]);
 
   const filterTabs: { key: FilterKey; label: string }[] = [
@@ -32,6 +45,120 @@ export const PortfolioSection: React.FC = () => {
 
   const filteredProjects = PORTFOLIO_PROJECTS.filter((proj) =>
     activeFilter === 'all' ? true : proj.categoryKey === activeFilter
+  );
+
+  const modalContent = selectedProject && (
+    <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          setSelectedProject(null);
+        }
+      }}
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 bg-[#05070B]/90 backdrop-blur-xl overflow-y-auto cursor-pointer"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-4xl my-auto rounded-2xl bg-[#090C14] p-6 sm:p-8 border border-amber-500/40 shadow-[0_25px_70px_rgba(0,0,0,0.95)] animate-in fade-in zoom-in duration-300 cursor-default"
+      >
+        {/* Close Button */}
+        <button
+          type="button"
+          onClick={() => setSelectedProject(null)}
+          className="absolute top-6 right-6 z-10 p-2.5 rounded-full bg-slate-950/80 text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-700/60 transition-colors cursor-pointer"
+          aria-label="Close case study"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
+        {/* Modal Content */}
+        <div className="space-y-6">
+          {/* Header Image */}
+          <div className="relative h-64 sm:h-96 w-full rounded-xl overflow-hidden border border-amber-500/20">
+            <Image
+              src={selectedProject.image}
+              alt={selectedProject.title}
+              fill
+              className="object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#07090E] via-transparent to-transparent opacity-90" />
+            
+            <div className="absolute bottom-6 left-6 right-6">
+              <span className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-300 block mb-1">
+                {selectedProject.category} • {selectedProject.client} ({selectedProject.year})
+              </span>
+              <h3 className="text-2xl sm:text-4xl font-bold text-white font-serif">
+                {selectedProject.title}
+              </h3>
+            </div>
+          </div>
+
+          {/* Case Details */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+            <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+              <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2">
+                The Challenge
+              </h4>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                {selectedProject.challenge}
+              </p>
+            </div>
+
+            <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+              <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2">
+                Our Solution
+              </h4>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                {selectedProject.solution}
+              </p>
+            </div>
+
+            <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+              <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2">
+                Results & Impact
+              </h4>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                {selectedProject.impact}
+              </p>
+            </div>
+          </div>
+
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2 pt-2 items-center">
+            <Tag className="w-4 h-4 text-amber-400 mr-2" />
+            {selectedProject.tags.map((tag) => (
+              <span key={tag} className="px-3 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs text-slate-300 font-medium">
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          {/* Footer CTA */}
+          <div className="pt-4 flex items-center justify-between gap-4">
+            {selectedProject.url ? (
+              <a
+                href={selectedProject.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-md bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:scale-[1.02] transition-transform cursor-pointer"
+              >
+                <span>Launch Project</span>
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            ) : <div />}
+
+            <button
+              type="button"
+              onClick={() => setSelectedProject(null)}
+              className="px-6 py-2.5 rounded-md bg-slate-800 hover:bg-slate-700 active:bg-slate-900 text-slate-200 hover:text-white font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer border border-slate-700/60 shadow-md"
+            >
+              Close Showcase
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 
   return (
@@ -122,7 +249,7 @@ export const PortfolioSection: React.FC = () => {
         <div className="mt-14 text-center">
           <button
             onClick={() => setActiveFilter('all')}
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-md bg-slate-900/80 hover:bg-slate-800 backdrop-blur-md border border-amber-500/40 hover:border-amber-400 text-amber-300 font-bold text-xs uppercase tracking-widest transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.15)] hover:shadow-[0_0_25px_rgba(212,175,55,0.3)]"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-md bg-slate-900/80 hover:bg-slate-800 backdrop-blur-md border border-amber-500/40 hover:border-amber-400 text-amber-300 font-bold text-xs uppercase tracking-widest transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.15)] hover:shadow-[0_0_25px_rgba(212,175,55,0.3)] cursor-pointer"
           >
             <span>VIEW ALL PROJECTS</span>
             <ChevronRight className="w-4 h-4" />
@@ -130,105 +257,9 @@ export const PortfolioSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Case Study Modal */}
-      {selectedProject && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-[#05070B]/90 backdrop-blur-xl overflow-y-auto">
-          <div className="relative w-full max-w-4xl my-auto rounded-2xl bg-[#090C14] p-6 sm:p-8 border border-amber-500/40 shadow-[0_25px_70px_rgba(0,0,0,0.95)] animate-in fade-in zoom-in duration-300">
-            {/* Close Button */}
-            <button
-              onClick={() => setSelectedProject(null)}
-              className="absolute top-6 right-6 z-10 p-2.5 rounded-full bg-slate-950/80 text-slate-300 hover:text-white border border-slate-700/60"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {/* Modal Content */}
-            <div className="space-y-6">
-              {/* Header Image */}
-              <div className="relative h-64 sm:h-96 w-full rounded-xl overflow-hidden border border-amber-500/20">
-                <Image
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
-                  fill
-                  className="object-cover object-center"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#07090E] via-transparent to-transparent opacity-90" />
-                
-                <div className="absolute bottom-6 left-6 right-6">
-                  <span className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-300 block mb-1">
-                    {selectedProject.category} • {selectedProject.client} ({selectedProject.year})
-                  </span>
-                  <h3 className="text-2xl sm:text-4xl font-bold text-white font-serif">
-                    {selectedProject.title}
-                  </h3>
-                </div>
-              </div>
-
-              {/* Case Details */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-                <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
-                  <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2">
-                    The Challenge
-                  </h4>
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    {selectedProject.challenge}
-                  </p>
-                </div>
-
-                <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
-                  <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2">
-                    Our Solution
-                  </h4>
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    {selectedProject.solution}
-                  </p>
-                </div>
-
-                <div className="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
-                  <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2">
-                    Results & Impact
-                  </h4>
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    {selectedProject.impact}
-                  </p>
-                </div>
-              </div>
-
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 pt-2 items-center">
-                <Tag className="w-4 h-4 text-amber-400 mr-2" />
-                {selectedProject.tags.map((tag) => (
-                  <span key={tag} className="px-3 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs text-slate-300 font-medium">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {/* Footer CTA */}
-              <div className="pt-4 flex items-center justify-between gap-4">
-                {selectedProject.url ? (
-                  <a
-                    href={selectedProject.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-md bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:scale-[1.02] transition-transform"
-                  >
-                    <span>Launch Project</span>
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
-                ) : <div />}
-
-                <button
-                  onClick={() => setSelectedProject(null)}
-                  className="px-6 py-2.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs uppercase tracking-wider transition-colors"
-                >
-                  Close Showcase
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Case Study Modal rendered via Portal */}
+      {mounted && modalContent && createPortal(modalContent, document.body)}
     </section>
   );
 };
+
