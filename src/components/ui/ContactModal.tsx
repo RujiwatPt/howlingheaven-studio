@@ -15,6 +15,17 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
   const [message, setMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const primaryEmail = 'gdulahan@gmail.com';
@@ -40,12 +51,12 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto">
-      <div className="relative w-full max-w-lg my-8 rounded-xl studio-card p-6 sm:p-8 border border-amber-500/40 shadow-2xl animate-in fade-in zoom-in duration-200">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-[#05070B]/90 backdrop-blur-xl overflow-y-auto">
+      <div className="relative w-full max-w-lg my-auto rounded-2xl bg-[#090C14] p-6 sm:p-8 border border-amber-500/40 shadow-[0_25px_70px_rgba(0,0,0,0.95)] animate-in fade-in zoom-in duration-200">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
+          className="absolute top-5 right-5 z-10 p-2 rounded bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
         >
           <X className="w-4 h-4" />
         </button>

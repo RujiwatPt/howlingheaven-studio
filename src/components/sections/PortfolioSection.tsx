@@ -11,6 +11,17 @@ export const PortfolioSection: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<FilterKey>('all');
   const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
 
+  React.useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedProject]);
+
   const filterTabs: { key: FilterKey; label: string }[] = [
     { key: 'all', label: 'ALL WORKS' },
     { key: 'games', label: 'GAME ART' },
@@ -121,8 +132,8 @@ export const PortfolioSection: React.FC = () => {
 
       {/* Case Study Modal */}
       {selectedProject && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-xl overflow-y-auto">
-          <div className="relative w-full max-w-4xl my-8 rounded-2xl glass-panel-gold p-6 sm:p-8 border-gold-glow shadow-[0_25px_60px_rgba(0,0,0,0.9)] animate-in fade-in zoom-in duration-300">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-[#05070B]/90 backdrop-blur-xl overflow-y-auto">
+          <div className="relative w-full max-w-4xl my-auto rounded-2xl bg-[#090C14] p-6 sm:p-8 border border-amber-500/40 shadow-[0_25px_70px_rgba(0,0,0,0.95)] animate-in fade-in zoom-in duration-300">
             {/* Close Button */}
             <button
               onClick={() => setSelectedProject(null)}

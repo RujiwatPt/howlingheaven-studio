@@ -62,11 +62,11 @@ export const Footer: React.FC = () => {
               EXPLORE
             </h4>
             <ul className="space-y-2 text-xs text-slate-400">
-              <li><a href="#hero" className="hover:text-amber-300 transition-colors">Home</a></li>
-              <li><a href="#about" className="hover:text-amber-300 transition-colors">About Us</a></li>
-              <li><a href="#services" className="hover:text-amber-300 transition-colors">Services</a></li>
-              <li><a href="#product" className="hover:text-amber-300 transition-colors">Our Product</a></li>
-              <li><a href="#contact" className="hover:text-amber-300 transition-colors">Contact</a></li>
+              <li><a href="/#hero" className="hover:text-amber-300 transition-colors">Home</a></li>
+              <li><a href="/#about" className="hover:text-amber-300 transition-colors">About Us</a></li>
+              <li><a href="/#services" className="hover:text-amber-300 transition-colors">Services</a></li>
+              <li><a href="/#product" className="hover:text-amber-300 transition-colors">Our Product</a></li>
+              <li><a href="/#contact" className="hover:text-amber-300 transition-colors">Contact</a></li>
             </ul>
           </div>
 
@@ -76,10 +76,10 @@ export const Footer: React.FC = () => {
               SERVICES
             </h4>
             <ul className="space-y-2 text-xs text-slate-400">
-              <li><a href="#services" className="hover:text-amber-300 transition-colors">Visual Novel</a></li>
-              <li><a href="#services" className="hover:text-amber-300 transition-colors">Chatbot Application</a></li>
-              <li><a href="#services" className="hover:text-amber-300 transition-colors">Web Development</a></li>
-              <li><a href="#services" className="hover:text-amber-300 transition-colors">AI Solution</a></li>
+              <li><a href="/#services" className="hover:text-amber-300 transition-colors">Visual Novel</a></li>
+              <li><a href="/#services" className="hover:text-amber-300 transition-colors">Chatbot Application</a></li>
+              <li><a href="/#services" className="hover:text-amber-300 transition-colors">Web Development</a></li>
+              <li><a href="/#services" className="hover:text-amber-300 transition-colors">AI Solution</a></li>
             </ul>
           </div>
 
@@ -120,8 +120,8 @@ export const Footer: React.FC = () => {
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-500">
           <p>© {new Date().getFullYear()} Howling Heaven Studio. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <a href="#" className="hover:text-amber-400 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-amber-400 transition-colors">Terms of Service</a>
+            <a href="/privacy" className="hover:text-amber-400 transition-colors">Privacy Policy</a>
+            <a href="/terms" className="hover:text-amber-400 transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>

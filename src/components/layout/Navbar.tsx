@@ -21,11 +21,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
   }, []);
 
   const navLinks = [
-    { name: 'HOME', href: '#hero' },
-    { name: 'ABOUT', href: '#about' },
-    { name: 'SERVICES', href: '#services' },
-    { name: 'OUR PRODUCT', href: '#product' },
-    { name: 'CONTACT', href: '#contact' },
+    { name: 'HOME', href: '/#hero' },
+    { name: 'ABOUT', href: '/#about' },
+    { name: 'SERVICES', href: '/#services' },
+    { name: 'OUR PRODUCT', href: '/#product' },
+    { name: 'CONTACT', href: '/#contact' },
   ];
 
   return (
@@ -38,7 +38,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 flex items-center justify-between">
         {/* Logo */}
-        <a href="#hero" className="flex items-center">
+        <a href="/" className="flex items-center">
           <Logo size="md" />
         </a>
 

@@ -8,6 +8,17 @@ import { BookOpen, MessageSquare, Code, Brain, X, CheckCircle2, ExternalLink, Sp
 export const ServicesSection: React.FC = () => {
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
 
+  React.useEffect(() => {
+    if (selectedService) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedService]);
+
   const getIcon = (iconName: string) => {
     switch (iconName) {
       case 'Book':
@@ -24,7 +35,7 @@ export const ServicesSection: React.FC = () => {
   };
 
   return (
-    <section id="services" className="relative py-24 bg-transparent overflow-hidden border-t border-amber-500/10 z-10">
+    <section id="services" className="relative py-24 bg-transparent border-t border-amber-500/10 z-10">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
         
         {/* Section Header */}
@@ -74,8 +85,8 @@ export const ServicesSection: React.FC = () => {
 
       {/* Service Detail Modal */}
       {selectedService && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto">
-          <div className="relative w-full max-w-3xl my-8 rounded-xl studio-card p-6 sm:p-8 border border-amber-500/40 shadow-2xl animate-in fade-in zoom-in duration-200">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-[#05070B]/90 backdrop-blur-xl overflow-y-auto">
+          <div className="relative w-full max-w-3xl my-auto rounded-2xl bg-[#090C14] p-6 sm:p-8 border border-amber-500/40 shadow-[0_25px_70px_rgba(0,0,0,0.95)] animate-in fade-in zoom-in duration-200">
             <button
               onClick={() => setSelectedService(null)}
               className="absolute top-5 right-5 z-10 p-2 rounded bg-slate-900 text-slate-400 hover:text-white border border-slate-800"
