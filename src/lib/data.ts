@@ -113,15 +113,7 @@ export const NEW_SERVICES_DATA: ServiceItem[] = [
     fullDesc: 'Tailored artificial intelligence models, automated workflow agents, custom retrieval-augmented generation (RAG) pipelines, and intelligent API integrations.',
     iconName: 'Brain',
     deliverables: ['Custom RAG Knowledge Bases', 'Automated AI Workflow Agents', 'Custom API Integrations', 'AI Analytics & Dashboards', 'Enterprise Security Compliance'],
-    tools: ['OpenAI / Gemini SDK', 'LangChain / LlamaIndex', 'Pinecone', 'Python', 'FastAPI'],
-    featuredWork: {
-      title: 'Memorai',
-      subtitle: 'Multi-Agent Shared Memory & Communication MCP Server',
-      description: 'A local Model Context Protocol (MCP) server enabling Cursor, Antigravity, Claude Desktop, and Codex to exchange handoffs, store persistent SQLite memories, and coordinate shared task boards.',
-      url: 'https://github.com/RujiwatPt/memorai',
-      urlLabel: 'View GitHub Repository',
-      tags: ['MCP Server', 'Multi-Agent', 'SQLite', 'Node.js', 'Open Source']
-    }
+    tools: ['OpenAI / Gemini SDK', 'LangChain / LlamaIndex', 'Pinecone', 'Python', 'FastAPI']
   }
 ];
 
@@ -161,20 +153,6 @@ export const FEATURED_CHARACTERS: CharacterCard[] = [
 ];
 
 export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
-  {
-    id: 'memorai',
-    title: 'Memorai',
-    category: 'AI Multi-Agent Memory & MCP Server',
-    categoryKey: 'web',
-    description: 'Centralized shared memory and inter-agent communication protocol for Cursor, Antigravity, Claude, and Codex desktop applications.',
-    challenge: 'Enable autonomous AI coding agents across multiple desktop applications to communicate, exchange handoffs, and share persistent context without third-party API dependencies or cloud data leakage.',
-    solution: 'Architected a local Model Context Protocol (MCP) server with SQLite persistence, atomic task locking, inbox messaging, and vector/text memory retrieval.',
-    impact: 'Powers seamless multi-agent workflows, stateful multi-step software engineering, and continuous agent memory coordination.',
-    tags: ['MCP Server', 'AI Memory', 'Multi-Agent', 'SQLite', 'TypeScript', 'Open Source'],
-    year: '2026',
-    client: 'Open Source / Howling Heaven Studio',
-    url: 'https://github.com/RujiwatPt/memorai'
-  },
   {
     id: 'beastforge',
     title: 'BeastForge',

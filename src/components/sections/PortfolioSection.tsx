@@ -74,8 +74,8 @@ export const PortfolioSection: React.FC = () => {
 
         {/* Modal Content */}
         <div className="space-y-6">
-          {/* Header Image or Terminal Header */}
-          {selectedProject.image ? (
+          {/* Header Image */}
+          {selectedProject.image && (
             <div className="relative h-64 sm:h-96 w-full rounded-xl overflow-hidden border border-amber-500/20">
               <Image
                 src={selectedProject.image}
@@ -87,28 +87,6 @@ export const PortfolioSection: React.FC = () => {
               
               <div className="absolute bottom-6 left-6 right-6">
                 <span className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-300 block mb-1">
-                  {selectedProject.category} • {selectedProject.client} ({selectedProject.year})
-                </span>
-                <h3 className="text-2xl sm:text-4xl font-bold text-white font-serif">
-                  {selectedProject.title}
-                </h3>
-              </div>
-            </div>
-          ) : (
-            <div className="relative p-6 sm:p-8 rounded-xl bg-gradient-to-b from-[#0e1320] to-[#07090E] border border-amber-500/30 overflow-hidden">
-              <div className="flex items-center justify-between pb-4 border-b border-slate-800 text-[11px] font-mono text-slate-400">
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-red-500/80 inline-block" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80 inline-block" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-green-500/80 inline-block" />
-                  <span className="ml-2 text-slate-300">mcp-server · {selectedProject.title.toLowerCase()}.db</span>
-                </div>
-                <span className="text-amber-400 font-semibold uppercase tracking-wider text-[10px]">
-                  Open Source Protocol
-                </span>
-              </div>
-              <div className="pt-4 space-y-1">
-                <span className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-300 block">
                   {selectedProject.category} • {selectedProject.client} ({selectedProject.year})
                 </span>
                 <h3 className="text-2xl sm:text-4xl font-bold text-white font-serif">
@@ -229,8 +207,8 @@ export const PortfolioSection: React.FC = () => {
               onClick={() => setSelectedProject(project)}
               className="group cursor-pointer rounded-xl glass-panel overflow-hidden border-gold-glow flex flex-col transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(212,175,55,0.15)]"
             >
-              {/* Image Preview Container or Code Header */}
-              {project.image ? (
+              {/* Image Preview Container */}
+              {project.image && (
                 <div className="relative h-56 w-full overflow-hidden">
                   <Image
                     src={project.image}
@@ -243,24 +221,6 @@ export const PortfolioSection: React.FC = () => {
                   {/* Year Badge */}
                   <div className="absolute top-3 right-3 px-2.5 py-1 rounded bg-slate-950/80 backdrop-blur-md border border-amber-500/30 text-[10px] font-bold text-amber-300 tracking-wider">
                     {project.year}
-                  </div>
-                </div>
-              ) : (
-                <div className="relative h-56 w-full bg-gradient-to-b from-[#0a0f1d] to-[#07090E] border-b border-amber-500/20 p-5 flex flex-col justify-between font-mono text-xs text-slate-300">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-                      <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
-                    </div>
-                    <div className="px-2.5 py-1 rounded bg-slate-950/80 border border-amber-500/30 text-[10px] font-bold text-amber-300 tracking-wider font-sans">
-                      {project.year}
-                    </div>
-                  </div>
-                  <div className="space-y-1 text-[11px] text-slate-400">
-                    <p className="text-amber-400">$ npx -y @rujiwat/memorai</p>
-                    <p className="text-emerald-400 text-[10px]">✓ MCP stdio transport ready</p>
-                    <p className="text-slate-500 text-[10px]">Cursor · Antigravity · Claude · Codex</p>
                   </div>
                 </div>
               )}

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ExternalLink, Feather, MessageSquare, Globe, Heart, BookOpen, Sparkles, Palette, Layers, Sliders, Database, Cpu, Network, Terminal, Wine, Swords } from 'lucide-react';
+import { ExternalLink, Feather, MessageSquare, Globe, Heart, BookOpen, Sparkles, Palette, Layers, Sliders, Wine, Swords } from 'lucide-react';
 
 interface ProductItem {
   id: string;
@@ -12,29 +12,13 @@ interface ProductItem {
   description: string;
   appUrl: string;
   ctaText: string;
-  image?: string;
-  imageAlt?: string;
+  image: string;
+  imageAlt: string;
   bannerText: string;
   features: { icon: React.ComponentType<{ className?: string }>; text: string }[];
 }
 
 const PRODUCTS: ProductItem[] = [
-  {
-    id: 'memorai',
-    badge: '🐾 OUR AI MEMORY MCP SYSTEM',
-    title: 'Memorai',
-    subtitle: 'Multi-Agent Shared Memory & Communication Server',
-    description: 'A local Model Context Protocol (MCP) server that empowers desktop AI agents (Cursor, Antigravity, Claude, and Codex) to exchange task handoffs, store persistent SQLite memories, and coordinate workflow boards without cloud data leakage.',
-    appUrl: 'https://github.com/RujiwatPt/memorai',
-    ctaText: 'EXPLORE MEMORAI ON GITHUB',
-    bannerText: 'Memorai Open Source MCP Server',
-    features: [
-      { icon: Database, text: 'Local SQLite persistent shared memory & fast contextual retrieval' },
-      { icon: Network, text: 'Direct inter-agent handoffs between Cursor, Antigravity, Claude & Codex' },
-      { icon: Terminal, text: 'Atomic task queue & shared multi-agent project board' },
-      { icon: Cpu, text: '100% local, safe, and anti-ban compliant via official MCP spec' },
-    ],
-  },
   {
     id: 'beastforge',
     badge: '🐾 OUR RPG CHARACTER STUDIO',
@@ -225,7 +209,7 @@ export const ProductSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Graphic Column: Live Image or Developer Terminal Preview */}
+            {/* Right Graphic Column: Live Image Preview */}
             <div className="lg:col-span-7 relative group">
               <a
                 href={activeProduct.appUrl}
@@ -233,62 +217,15 @@ export const ProductSection: React.FC = () => {
                 rel="noopener noreferrer"
                 className="block relative rounded-xl overflow-hidden border border-amber-500/30 shadow-2xl bg-[#090C14] group-hover:border-amber-400 transition-all duration-300 cursor-pointer"
               >
-                {activeProduct.image ? (
-                  <div className="relative h-72 sm:h-[380px] w-full">
-                    <Image
-                      src={activeProduct.image}
-                      alt={activeProduct.imageAlt || activeProduct.title}
-                      fill
-                      className="object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#07090D]/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
-                  </div>
-                ) : (
-                  /* Developer Terminal & MCP Protocol Preview for Memorai */
-                  <div className="p-5 sm:p-7 font-mono text-xs text-slate-300 space-y-4 bg-gradient-to-b from-[#090C14] to-[#05070B] min-h-[340px] flex flex-col justify-between">
-                    {/* Window Controls */}
-                    <div className="flex items-center justify-between pb-3 border-b border-slate-800 text-[11px]">
-                      <div className="flex items-center gap-2">
-                        <span className="w-3 h-3 rounded-full bg-red-500/80 inline-block" />
-                        <span className="w-3 h-3 rounded-full bg-yellow-500/80 inline-block" />
-                        <span className="w-3 h-3 rounded-full bg-green-500/80 inline-block" />
-                        <span className="ml-2 text-slate-400 font-semibold font-mono">memorai · mcp server</span>
-                      </div>
-                      <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20 font-sans font-semibold uppercase tracking-wider">
-                        SQLite Persistent
-                      </span>
-                    </div>
-
-                    {/* Terminal Command & Architecture Output */}
-                    <div className="space-y-2.5 py-1 text-[11px] sm:text-xs">
-                      <p className="text-slate-400">
-                        <span className="text-amber-400">$</span> npx -y @rujiwat/memorai
-                      </p>
-                      <p className="text-emerald-400">
-                        ✓ Memorai MCP server listening on stdio (PID: 48921)
-                      </p>
-                      <p className="text-slate-400">
-                        ✓ Connected local database: <span className="text-amber-300">~/memorai/memorai.db</span>
-                      </p>
-                      <div className="p-3 rounded bg-slate-950/80 border border-slate-800/80 space-y-1 text-[10px] sm:text-[11px]">
-                        <p className="text-slate-400 uppercase font-semibold text-[9px] tracking-wider text-amber-400">
-                          ACTIVE AGENT BRIDGES
-                        </p>
-                        <p className="text-slate-300">⚡ Cursor IDE ⟷ Antigravity ⟷ Claude Desktop ⟷ Codex</p>
-                        <p className="text-slate-400">Tools: fetch_inbox, send_agent_message, claim_task, search_shared_memory</p>
-                      </div>
-                    </div>
-
-                    {/* Status Footer */}
-                    <div className="pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
-                      <span className="flex items-center gap-1.5 text-emerald-400">
-                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                        Multi-Agent Shared Bus Ready
-                      </span>
-                      <span className="text-amber-300">v1.0.0</span>
-                    </div>
-                  </div>
-                )}
+                <div className="relative h-72 sm:h-[380px] w-full">
+                  <Image
+                    src={activeProduct.image}
+                    alt={activeProduct.imageAlt || activeProduct.title}
+                    fill
+                    className="object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#07090D]/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
+                </div>
 
                 {/* External Link Overlay Banner */}
                 <div className="p-3 bg-slate-900/95 border-t border-slate-800 flex items-center justify-between gap-2 text-xs">
@@ -296,7 +233,7 @@ export const ProductSection: React.FC = () => {
                     <span>{activeProduct.bannerText}</span>
                   </span>
                   <span className="text-[11px] font-bold text-amber-300 flex items-center gap-1 group-hover:underline">
-                    {activeProduct.image ? 'Open Live App' : 'View on GitHub'} <ExternalLink className="w-3.5 h-3.5" />
+                    Open Live App <ExternalLink className="w-3.5 h-3.5" />
                   </span>
                 </div>
               </a>
