@@ -100,17 +100,19 @@ export const ServicesSection: React.FC = () => {
                 <span className="text-[10px] text-slate-400 font-medium">Live Release</span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
-                <div className="sm:col-span-5 relative h-40 w-full rounded-lg overflow-hidden border border-amber-500/20">
-                  <Image
-                    src={selectedService.featuredWork.image}
-                    alt={selectedService.featuredWork.title}
-                    fill
-                    className="object-cover object-center"
-                  />
-                </div>
+              <div className={`grid grid-cols-1 ${selectedService.featuredWork.image ? 'sm:grid-cols-12' : 'grid-cols-1'} gap-4 items-center`}>
+                {selectedService.featuredWork.image && (
+                  <div className="sm:col-span-5 relative h-40 w-full rounded-lg overflow-hidden border border-amber-500/20">
+                    <Image
+                      src={selectedService.featuredWork.image}
+                      alt={selectedService.featuredWork.title}
+                      fill
+                      className="object-cover object-center"
+                    />
+                  </div>
+                )}
 
-                <div className="sm:col-span-7 space-y-2">
+                <div className={`${selectedService.featuredWork.image ? 'sm:col-span-7' : 'w-full'} space-y-2`}>
                   <h4 className="text-base font-bold text-white font-serif-title">
                     {selectedService.featuredWork.title}
                   </h4>

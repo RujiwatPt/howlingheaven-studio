@@ -2,7 +2,7 @@ export interface FeaturedWork {
   title: string;
   subtitle: string;
   description: string;
-  image: string;
+  image?: string;
   url: string;
   urlLabel: string;
   tags: string[];
@@ -33,7 +33,7 @@ export interface PortfolioProject {
   title: string;
   category: string;
   categoryKey: 'games' | 'branding' | 'cinematic' | 'web';
-  image: string;
+  image?: string;
   description: string;
   challenge: string;
   solution: string;
@@ -118,7 +118,6 @@ export const NEW_SERVICES_DATA: ServiceItem[] = [
       title: 'Memorai',
       subtitle: 'Multi-Agent Shared Memory & Communication MCP Server',
       description: 'A local Model Context Protocol (MCP) server enabling Cursor, Antigravity, Claude Desktop, and Codex to exchange handoffs, store persistent SQLite memories, and coordinate shared task boards.',
-      image: '/images/memorai_preview.jpg',
       url: 'https://github.com/RujiwatPt/memorai',
       urlLabel: 'View GitHub Repository',
       tags: ['MCP Server', 'Multi-Agent', 'SQLite', 'Node.js', 'Open Source']
@@ -167,7 +166,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     title: 'Memorai',
     category: 'AI Multi-Agent Memory & MCP Server',
     categoryKey: 'web',
-    image: '/images/memorai_preview.jpg',
     description: 'Centralized shared memory and inter-agent communication protocol for Cursor, Antigravity, Claude, and Codex desktop applications.',
     challenge: 'Enable autonomous AI coding agents across multiple desktop applications to communicate, exchange handoffs, and share persistent context without third-party API dependencies or cloud data leakage.',
     solution: 'Architected a local Model Context Protocol (MCP) server with SQLite persistence, atomic task locking, inbox messaging, and vector/text memory retrieval.',
@@ -191,6 +189,51 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     year: '2026',
     client: 'Howling Heaven Studio',
     url: 'https://beastforge.howlingheaven.com/'
+  },
+  {
+    id: 'beastmen-masseur',
+    title: 'Beastmen Masseur',
+    category: 'Clinic Simulation & Visual Novel',
+    categoryKey: 'games',
+    image: '/images/masseur_preview.png',
+    description: 'A cozy, body-positive massage clinic simulation and visual novel where players run a clinic for beastfolk clients in Saltmarrow Harbor.',
+    challenge: 'Design an intuitive, consent-driven massage minigame that balances treatment planning, body-zone mechanics, and respectful physical boundaries with heartfelt character drama.',
+    solution: 'Architected multi-pose anatomical maps (face-down, face-up, seated) with pressure sensitivity, boundary validation, and a 12-client branching narrative system paired with Pip\'s Apothecary clinic upgrades.',
+    impact: 'Delivers a warm, inclusive narrative experience celebrating empathy, body positivity, and wholesome community connection.',
+    tags: ['Visual Novel', 'Clinic Simulation', 'Canvas 2D', 'Narrative Game', 'HTML5 Game'],
+    year: '2026',
+    client: 'Howling Heaven Studio',
+    url: 'https://masseur.howlingheaven.com/'
+  },
+  {
+    id: 'beastbar',
+    title: 'BeastBar',
+    category: 'Bartending Sim & Narrative VN',
+    categoryKey: 'games',
+    image: '/images/beastbar_preview.png',
+    description: 'A cozy bartending simulation and visual novel set in the rainy beastfolk city of Emberwick, following the stories and cocktail orders of tavern regulars over a 12-night season.',
+    challenge: 'Create an expressive cocktail crafting engine where taste profiles, customer emotional states, and timing mechanics seamlessly tie into branching narrative endings.',
+    solution: 'Engineered an 8-dimension flavor matrix with base spirits, mixers, and timed pour physics alongside rich character affinity progression and optional romance.',
+    impact: 'An evocative late-night atmospheric experience blending cozy management mechanics with memorable character arcs.',
+    tags: ['Bartending Sim', 'Visual Novel', 'Cocktail Mixing', 'Atmospheric', 'HTML5 Game'],
+    year: '2026',
+    client: 'Howling Heaven Studio',
+    url: 'https://beastbar.howlingheaven.com/'
+  },
+  {
+    id: 'combo-quest',
+    title: 'Combo Quest',
+    category: 'Retro Action Browser RPG',
+    categoryKey: 'games',
+    image: '/images/combo_preview.png',
+    description: 'A retro browser RPG featuring D&D-style storytelling, 2.5D free-roaming exploration, an anthro party of four distinct heroes, and dynamic turn-based battles driven by WASD combo inputs.',
+    challenge: 'Deliver full-featured tabletop RPG combat, real-time rhythm combo execution, and 2.5D world exploration entirely within zero-dependency lightweight Canvas.',
+    solution: 'Engineered a custom Canvas 2D engine featuring directional arrow combo inputs with rhythm grades, class skill trees, dynamic companion banter, and adaptive chiptune/orchestral audio.',
+    impact: 'An instantly accessible, rich tabletop fantasy adventure offering tactical party combat and deep quest progression across desktop and mobile browsers.',
+    tags: ['Browser RPG', 'Turn-Based Combat', 'WASD Combos', 'Retro RPG', 'Canvas 2D'],
+    year: '2026',
+    client: 'Howling Heaven Studio',
+    url: 'https://combo.howlingheaven.com/'
   },
   {
     id: 'three-souls',

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ExternalLink, Feather, MessageSquare, Globe, Heart, BookOpen, Sparkles, Palette, Layers, Sliders, Database, Cpu, Network, Terminal } from 'lucide-react';
+import { ExternalLink, Feather, MessageSquare, Globe, Heart, BookOpen, Sparkles, Palette, Layers, Sliders, Database, Cpu, Network, Terminal, Wine, Swords } from 'lucide-react';
 
 interface ProductItem {
   id: string;
@@ -12,8 +12,8 @@ interface ProductItem {
   description: string;
   appUrl: string;
   ctaText: string;
-  image: string;
-  imageAlt: string;
+  image?: string;
+  imageAlt?: string;
   bannerText: string;
   features: { icon: React.ComponentType<{ className?: string }>; text: string }[];
 }
@@ -27,8 +27,6 @@ const PRODUCTS: ProductItem[] = [
     description: 'A local Model Context Protocol (MCP) server that empowers desktop AI agents (Cursor, Antigravity, Claude, and Codex) to exchange task handoffs, store persistent SQLite memories, and coordinate workflow boards without cloud data leakage.',
     appUrl: 'https://github.com/RujiwatPt/memorai',
     ctaText: 'EXPLORE MEMORAI ON GITHUB',
-    image: '/images/memorai_preview.jpg',
-    imageAlt: 'Memorai Multi-Agent Central Memory Dashboard Architecture',
     bannerText: 'Memorai Open Source MCP Server',
     features: [
       { icon: Database, text: 'Local SQLite persistent shared memory & fast contextual retrieval' },
@@ -74,6 +72,60 @@ const PRODUCTS: ProductItem[] = [
     ],
   },
   {
+    id: 'beastmen-masseur',
+    badge: '🐾 OUR COZY CLINIC SIMULATION',
+    title: 'Beastmen Masseur',
+    subtitle: 'The Paw & Leaf Clinic of Saltmarrow Harbor',
+    description: 'A cozy, SFW, and body-positive massage clinic simulation and visual novel. Listen to beastfolk clients, plan tailored treatments, and relieve tension with thoughtful consent boundaries.',
+    appUrl: 'https://masseur.howlingheaven.com/',
+    ctaText: 'VISIT PAW & LEAF CLINIC',
+    image: '/images/masseur_preview.png',
+    imageAlt: 'Beastmen Masseur: The Paw & Leaf Clinic Main Screen',
+    bannerText: 'Beastmen Masseur Live Game',
+    features: [
+      { icon: Heart, text: '12 unique beastfolk clients with 24 multi-visit story arcs' },
+      { icon: Sparkles, text: 'Tactile massage minigame with pressure & zone mapping' },
+      { icon: BookOpen, text: 'Meaningful consent checks & client comfort mechanics' },
+      { icon: Globe, text: "Pip's Apothecary shop upgrades & herbal remedies" },
+    ],
+  },
+  {
+    id: 'beastbar',
+    badge: '🐾 OUR BARTENDING SIMULATION',
+    title: 'BeastBar',
+    subtitle: 'Nights at The Velvet Paw',
+    description: 'A cozy bartending simulation and visual novel set in rainy Emberwick. Mix drinks across 8 taste dimensions, listen to regulars out of the rain, and guide their stories across a 12-night season.',
+    appUrl: 'https://beastbar.howlingheaven.com/',
+    ctaText: 'STEP INTO THE VELVET PAW',
+    image: '/images/beastbar_preview.png',
+    imageAlt: 'BeastBar: Nights at The Velvet Paw Main Screen',
+    bannerText: 'BeastBar Live Web Application',
+    features: [
+      { icon: Feather, text: '9 memorable regulars with branching dialogue & optional romance' },
+      { icon: Sliders, text: 'Deep cocktail mixing engine across 8 live taste dimensions' },
+      { icon: Wine, text: 'Daytime market shopping, jukebox tunes & tavern upgrades' },
+      { icon: Globe, text: 'Multi-ending narrative with wholesome friendship arcs' },
+    ],
+  },
+  {
+    id: 'combo-quest',
+    badge: '🐾 OUR ACTION BROWSER RPG',
+    title: 'Combo Quest',
+    subtitle: 'The Hollow Crown of Valdren',
+    description: 'A retro browser RPG featuring D&D-style storytelling, 2.5D free-roaming exploration, an anthro party of four heroes, and turn-based battles powered by real-time WASD combo inputs.',
+    appUrl: 'https://combo.howlingheaven.com/',
+    ctaText: 'PLAY COMBO QUEST',
+    image: '/images/combo_preview.png',
+    imageAlt: 'Combo Quest: The Hollow Crown of Valdren Main Screen',
+    bannerText: 'Combo Quest Live Game',
+    features: [
+      { icon: Swords, text: 'Dynamic WASD arrow combo system with rhythm timing' },
+      { icon: BookOpen, text: 'Tabletop-inspired multi-act quest campaign with companion banter' },
+      { icon: Layers, text: 'Four distinct hero classes with skill trees & gear upgrades' },
+      { icon: Globe, text: 'Zero dependencies: instant-play Canvas 2D engine' },
+    ],
+  },
+  {
     id: 'howly-ai',
     badge: '🐾 OUR LAUNCHED PRODUCT',
     title: 'Howly.ai',
@@ -109,7 +161,7 @@ export const ProductSection: React.FC = () => {
               <button
                 key={prod.id}
                 onClick={() => setActiveProductId(prod.id)}
-                className={`px-5 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-300 flex items-center gap-2 ${
+                className={`px-5 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-300 flex items-center gap-2 cursor-pointer ${
                   isSelected
                     ? 'bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 shadow-[0_0_20px_rgba(212,175,55,0.4)] scale-105'
                     : 'bg-slate-900/80 text-slate-300 hover:text-amber-300 border border-slate-800 hover:border-amber-500/40'
@@ -165,7 +217,7 @@ export const ProductSection: React.FC = () => {
                   href={activeProduct.appUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded px-7 py-3 bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-slate-950 font-bold text-xs tracking-widest uppercase transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:shadow-[0_0_30px_rgba(212,175,55,0.7)] hover:scale-[1.02]"
+                  className="inline-flex items-center gap-2 rounded px-7 py-3 bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 text-slate-950 font-bold text-xs tracking-widest uppercase transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:shadow-[0_0_30px_rgba(212,175,55,0.7)] hover:scale-[1.02] cursor-pointer"
                 >
                   <span>{activeProduct.ctaText}</span>
                   <ExternalLink className="w-4 h-4" />
@@ -173,23 +225,70 @@ export const ProductSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Product Graphic Preview (Clickable to Real App) */}
+            {/* Right Graphic Column: Live Image or Developer Terminal Preview */}
             <div className="lg:col-span-7 relative group">
               <a
                 href={activeProduct.appUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block relative rounded-xl overflow-hidden border border-amber-500/30 shadow-2xl bg-slate-950 group-hover:border-amber-400 transition-all duration-300"
+                className="block relative rounded-xl overflow-hidden border border-amber-500/30 shadow-2xl bg-[#090C14] group-hover:border-amber-400 transition-all duration-300 cursor-pointer"
               >
-                <div className="relative h-72 sm:h-[380px] w-full">
-                  <Image
-                    src={activeProduct.image}
-                    alt={activeProduct.imageAlt}
-                    fill
-                    className="object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#07090D]/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
-                </div>
+                {activeProduct.image ? (
+                  <div className="relative h-72 sm:h-[380px] w-full">
+                    <Image
+                      src={activeProduct.image}
+                      alt={activeProduct.imageAlt || activeProduct.title}
+                      fill
+                      className="object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#07090D]/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
+                  </div>
+                ) : (
+                  /* Developer Terminal & MCP Protocol Preview for Memorai */
+                  <div className="p-5 sm:p-7 font-mono text-xs text-slate-300 space-y-4 bg-gradient-to-b from-[#090C14] to-[#05070B] min-h-[340px] flex flex-col justify-between">
+                    {/* Window Controls */}
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800 text-[11px]">
+                      <div className="flex items-center gap-2">
+                        <span className="w-3 h-3 rounded-full bg-red-500/80 inline-block" />
+                        <span className="w-3 h-3 rounded-full bg-yellow-500/80 inline-block" />
+                        <span className="w-3 h-3 rounded-full bg-green-500/80 inline-block" />
+                        <span className="ml-2 text-slate-400 font-semibold font-mono">memorai · mcp server</span>
+                      </div>
+                      <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20 font-sans font-semibold uppercase tracking-wider">
+                        SQLite Persistent
+                      </span>
+                    </div>
+
+                    {/* Terminal Command & Architecture Output */}
+                    <div className="space-y-2.5 py-1 text-[11px] sm:text-xs">
+                      <p className="text-slate-400">
+                        <span className="text-amber-400">$</span> npx -y @rujiwat/memorai
+                      </p>
+                      <p className="text-emerald-400">
+                        ✓ Memorai MCP server listening on stdio (PID: 48921)
+                      </p>
+                      <p className="text-slate-400">
+                        ✓ Connected local database: <span className="text-amber-300">~/memorai/memorai.db</span>
+                      </p>
+                      <div className="p-3 rounded bg-slate-950/80 border border-slate-800/80 space-y-1 text-[10px] sm:text-[11px]">
+                        <p className="text-slate-400 uppercase font-semibold text-[9px] tracking-wider text-amber-400">
+                          ACTIVE AGENT BRIDGES
+                        </p>
+                        <p className="text-slate-300">⚡ Cursor IDE ⟷ Antigravity ⟷ Claude Desktop ⟷ Codex</p>
+                        <p className="text-slate-400">Tools: fetch_inbox, send_agent_message, claim_task, search_shared_memory</p>
+                      </div>
+                    </div>
+
+                    {/* Status Footer */}
+                    <div className="pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+                      <span className="flex items-center gap-1.5 text-emerald-400">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                        Multi-Agent Shared Bus Ready
+                      </span>
+                      <span className="text-amber-300">v1.0.0</span>
+                    </div>
+                  </div>
+                )}
 
                 {/* External Link Overlay Banner */}
                 <div className="p-3 bg-slate-900/95 border-t border-slate-800 flex items-center justify-between gap-2 text-xs">
@@ -197,7 +296,7 @@ export const ProductSection: React.FC = () => {
                     <span>{activeProduct.bannerText}</span>
                   </span>
                   <span className="text-[11px] font-bold text-amber-300 flex items-center gap-1 group-hover:underline">
-                    Open Live App <ExternalLink className="w-3.5 h-3.5" />
+                    {activeProduct.image ? 'Open Live App' : 'View on GitHub'} <ExternalLink className="w-3.5 h-3.5" />
                   </span>
                 </div>
               </a>
@@ -209,3 +308,4 @@ export const ProductSection: React.FC = () => {
     </section>
   );
 };
+
