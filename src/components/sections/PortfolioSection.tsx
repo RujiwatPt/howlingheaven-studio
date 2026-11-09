@@ -76,16 +76,17 @@ export const PortfolioSection: React.FC = () => {
         <div className="space-y-6">
           {/* Header Image */}
           {selectedProject.image && (
-            <div className="relative h-64 sm:h-96 w-full rounded-xl overflow-hidden border border-amber-500/20">
-              <Image
-                src={selectedProject.image}
-                alt={selectedProject.title}
-                fill
-                className="object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#07090E] via-transparent to-transparent opacity-90" />
+            <div className="space-y-4">
+              <div className="relative aspect-video w-full rounded-xl overflow-hidden border border-amber-500/30 bg-slate-950 shadow-2xl">
+                <Image
+                  src={selectedProject.image}
+                  alt={selectedProject.title}
+                  fill
+                  className="object-contain object-center"
+                />
+              </div>
               
-              <div className="absolute bottom-6 left-6 right-6">
+              <div className="pt-1">
                 <span className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-300 block mb-1">
                   {selectedProject.category} • {selectedProject.client} ({selectedProject.year})
                 </span>
@@ -209,14 +210,14 @@ export const PortfolioSection: React.FC = () => {
             >
               {/* Image Preview Container */}
               {project.image && (
-                <div className="relative h-56 w-full overflow-hidden">
+                <div className="relative aspect-video w-full overflow-hidden bg-slate-950">
                   <Image
                     src={project.image}
                     alt={project.title}
                     fill
-                    className="object-cover object-center group-hover:scale-110 transition-transform duration-700 filter brightness-90 group-hover:brightness-100"
+                    className="object-cover object-top group-hover:scale-105 transition-transform duration-500 filter brightness-95 group-hover:brightness-100"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#07090E] via-transparent to-transparent opacity-80" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#07090E]/60 via-transparent to-transparent opacity-40 group-hover:opacity-10 transition-opacity" />
                   
                   {/* Year Badge */}
                   <div className="absolute top-3 right-3 px-2.5 py-1 rounded bg-slate-950/80 backdrop-blur-md border border-amber-500/30 text-[10px] font-bold text-amber-300 tracking-wider">

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Logo } from '@/components/brand/Logo';
+import { siteDescription } from '@/lib/site';
 import { ArrowRight, Check, Globe, Share2, Sparkles, Mail, CheckCircle2 } from 'lucide-react';
 
 export const Footer: React.FC = () => {
@@ -49,7 +50,7 @@ export const Footer: React.FC = () => {
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Image
           src="/images/footer_campfire_bg.jpg"
-          alt="Nocturnal Campfire Forest"
+          alt=""
           fill
           className="object-cover object-bottom opacity-30 filter brightness-90"
         />
@@ -65,7 +66,7 @@ export const Footer: React.FC = () => {
               <Logo size="md" />
             </Link>
             <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
-              Howling Heaven Studio is a digital creative studio specializing in immersive storytelling, intelligent conversations, and custom web solutions. We build experiences that connect.
+              {siteDescription}
             </p>
             
             {/* Social & Action Icons */}
@@ -127,23 +128,24 @@ export const Footer: React.FC = () => {
 
           {/* Nav Column 1: EXPLORE */}
           <div className="lg:col-span-2 space-y-3">
-            <h4 className="text-xs font-bold text-amber-400 uppercase tracking-widest font-serif-title">
+            <p className="text-xs font-bold text-amber-400 uppercase tracking-widest font-serif-title">
               EXPLORE
-            </h4>
+            </p>
             <ul className="space-y-2 text-xs text-slate-400">
               <li><Link href="/#hero" className="hover:text-amber-300 transition-colors cursor-pointer">Home</Link></li>
               <li><Link href="/#about" className="hover:text-amber-300 transition-colors cursor-pointer">About Us</Link></li>
               <li><Link href="/#services" className="hover:text-amber-300 transition-colors cursor-pointer">Services</Link></li>
               <li><Link href="/#product" className="hover:text-amber-300 transition-colors cursor-pointer">Our Product</Link></li>
+              <li><Link href="/#faq" className="hover:text-amber-300 transition-colors cursor-pointer">Questions</Link></li>
               <li><Link href="/#contact" className="hover:text-amber-300 transition-colors cursor-pointer">Contact</Link></li>
             </ul>
           </div>
 
           {/* Nav Column 2: SERVICES */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-xs font-bold text-amber-400 uppercase tracking-widest font-serif-title">
+            <p className="text-xs font-bold text-amber-400 uppercase tracking-widest font-serif-title">
               SERVICES
-            </h4>
+            </p>
             <ul className="space-y-2 text-xs text-slate-400">
               <li><Link href="/#services" className="hover:text-amber-300 transition-colors cursor-pointer">Visual Novel</Link></li>
               <li><Link href="/#services" className="hover:text-amber-300 transition-colors cursor-pointer">Chatbot Application</Link></li>
@@ -154,9 +156,9 @@ export const Footer: React.FC = () => {
 
           {/* Nav Column 3: JOIN THE PACK */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-xs font-bold text-amber-400 uppercase tracking-widest font-serif-title">
+            <p className="text-xs font-bold text-amber-400 uppercase tracking-widest font-serif-title">
               JOIN THE PACK
-            </h4>
+            </p>
             <p className="text-xs text-slate-400 leading-relaxed">
               Get studio updates, insights, and behind-the-scenes previews.
             </p>

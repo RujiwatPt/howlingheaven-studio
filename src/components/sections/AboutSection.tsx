@@ -29,6 +29,9 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onOpenAboutModal }) 
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
               We&apos;re a small but passionate studio that believes in storytelling, technology, and the magic between. Every project we build is crafted with heart, fueled by curiosity, and driven by quality.
             </p>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+              The releases on this page are original to the studio: browser games, visual novels, the Howly.ai roleplay chatbot, and tools such as BeastForge and VideoFetcher.
+            </p>
 
             {/* Action Button */}
             <div className="pt-2">

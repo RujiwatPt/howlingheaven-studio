@@ -6,8 +6,10 @@ import { Footer } from '@/components/layout/Footer';
 import { ArrowLeft, Shield, Lock, Eye, FileText, Mail } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Howling Heaven Studio',
+  title: 'Privacy Policy',
   description: 'Privacy Policy and data practices for Howling Heaven Studio and its digital products.',
+  alternates: { canonical: '/privacy' },
+  openGraph: { url: '/privacy' },
 };
 
 export default function PrivacyPolicyPage() {

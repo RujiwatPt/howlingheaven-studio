@@ -15,7 +15,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenContactMod
       <div className="absolute inset-0 z-0">
         <Image
           src="/images/footer_campfire_bg.jpg"
-          alt="Howling Heaven Den Nocturnal Forest Campfire"
+          alt=""
           fill
           className="object-cover object-bottom opacity-50 filter brightness-90"
         />

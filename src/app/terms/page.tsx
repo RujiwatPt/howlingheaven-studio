@@ -6,8 +6,10 @@ import { Footer } from '@/components/layout/Footer';
 import { ArrowLeft, FileText, CheckCircle2, ShieldAlert, Cpu, AlertCircle, Mail } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | Howling Heaven Studio',
+  title: 'Terms of Service',
   description: 'Terms of Service and conditions for Howling Heaven Studio and its digital applications.',
+  alternates: { canonical: '/terms' },
+  openGraph: { url: '/terms' },
 };
 
 export default function TermsOfServicePage() {

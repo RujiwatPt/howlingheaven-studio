@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { ExternalLink, Feather, MessageSquare, Globe, Heart, BookOpen, Sparkles, Palette, Layers, Sliders, Wine, Swords, Video, Search, Play, Download, Target, Zap, Users } from 'lucide-react';
+import { siteName, siteUrl } from '@/lib/site';
 
 interface ProductItem {
   id: string;
@@ -165,14 +166,59 @@ const PRODUCTS: ProductItem[] = [
   },
 ];
 
+const applicationCategory: Record<string, string> = {
+  beastforge: 'DesignApplication',
+  'three-souls': 'GameApplication',
+  'beastmen-masseur': 'GameApplication',
+  beastbar: 'GameApplication',
+  'combo-quest': 'GameApplication',
+  'howly-ai': 'EntertainmentApplication',
+  vidfetcher: 'UtilitiesApplication',
+  'fubble-rivals': 'GameApplication',
+};
+
 export const ProductSection: React.FC = () => {
   const [activeProductId, setActiveProductId] = useState<string>('three-souls');
   const activeProduct = PRODUCTS.find((p) => p.id === activeProductId) || PRODUCTS[0];
 
+  const productSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `${siteName} products`,
+    itemListElement: PRODUCTS.map((product, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'SoftwareApplication',
+        name: product.title,
+        description: product.description,
+        url: product.appUrl,
+        image: `${siteUrl}${product.image}`,
+        applicationCategory: applicationCategory[product.id] ?? 'GameApplication',
+        operatingSystem: 'Web',
+        publisher: { '@id': `${siteUrl}/#organization` },
+      },
+    })),
+  };
+
   return (
     <section id="product" className="relative py-24 bg-transparent overflow-hidden border-t border-amber-500/10 z-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
       <div className="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
-        
+        <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
+          <div className="flex items-center justify-center gap-2 text-[11px] font-semibold tracking-[0.3em] text-amber-400 uppercase">
+            <span>—</span>
+            <span>Our work</span>
+            <span>—</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white font-serif-title tracking-tight">
+            Games and tools you can open now
+          </h2>
+        </div>
+
         {/* Product Switcher Selector */}
         <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
           {PRODUCTS.map((prod) => {
@@ -206,12 +252,12 @@ export const ProductSection: React.FC = () => {
               </div>
 
               <div>
-                <h2 className="text-3xl sm:text-5xl font-bold text-white font-serif-title tracking-tight text-gold-gradient">
+                <p className="text-3xl sm:text-5xl font-bold text-white font-serif-title tracking-tight text-gold-gradient">
                   {activeProduct.title}
-                </h2>
-                <h3 className="text-sm font-semibold text-slate-300 tracking-wide mt-1">
+                </p>
+                <p className="text-sm font-semibold text-slate-300 tracking-wide mt-1">
                   {activeProduct.subtitle}
-                </h3>
+                </p>
               </div>
 
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
@@ -253,14 +299,13 @@ export const ProductSection: React.FC = () => {
                 rel="noopener noreferrer"
                 className="block relative rounded-xl overflow-hidden border border-amber-500/30 shadow-2xl bg-[#090C14] group-hover:border-amber-400 transition-all duration-300 cursor-pointer"
               >
-                <div className="relative h-72 sm:h-[380px] w-full">
+                <div className="relative aspect-video w-full bg-slate-950">
                   <Image
                     src={activeProduct.image}
                     alt={activeProduct.imageAlt || activeProduct.title}
                     fill
-                    className="object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
+                    className="object-contain object-center group-hover:scale-[1.02] transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#07090D]/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
                 </div>
 
                 {/* External Link Overlay Banner */}
@@ -277,6 +322,25 @@ export const ProductSection: React.FC = () => {
 
           </div>
         </div>
+
+        <ul className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {PRODUCTS.map((product) => (
+            <li key={product.id} className="rounded-xl studio-card border-gold-subtle p-5 flex flex-col">
+              <h3 className="text-base font-bold text-white font-serif-title">{product.title}</h3>
+              <p className="text-xs text-amber-300 mt-1">{product.subtitle}</p>
+              <p className="text-xs text-slate-300 leading-relaxed mt-2 flex-1">{product.description}</p>
+              <a
+                href={product.appUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 mt-3 text-xs font-bold uppercase tracking-wider text-amber-300 hover:text-amber-200"
+              >
+                {product.ctaText}
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import { NEW_SERVICES_DATA, ServiceItem } from '@/lib/data';
+import { siteName, siteUrl } from '@/lib/site';
 import { BookOpen, MessageSquare, Code, Brain, X, CheckCircle2, ExternalLink, Sparkles } from 'lucide-react';
 
 export const ServicesSection: React.FC = () => {
@@ -102,12 +103,12 @@ export const ServicesSection: React.FC = () => {
 
               <div className={`grid grid-cols-1 ${selectedService.featuredWork.image ? 'sm:grid-cols-12' : 'grid-cols-1'} gap-4 items-center`}>
                 {selectedService.featuredWork.image && (
-                  <div className="sm:col-span-5 relative h-40 w-full rounded-lg overflow-hidden border border-amber-500/20">
+                  <div className="sm:col-span-5 relative aspect-video w-full rounded-lg overflow-hidden border border-amber-500/20 bg-slate-950">
                     <Image
                       src={selectedService.featuredWork.image}
                       alt={selectedService.featuredWork.title}
                       fill
-                      className="object-cover object-center"
+                      className="object-contain object-center"
                     />
                   </div>
                 )}
@@ -167,8 +168,30 @@ export const ServicesSection: React.FC = () => {
     </div>
   );
 
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `${siteName} services`,
+    itemListElement: NEW_SERVICES_DATA.map((service, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Service',
+        name: service.title,
+        description: `${service.shortDesc} ${service.fullDesc}`,
+        serviceType: service.title,
+        url: `${siteUrl}/#services`,
+        provider: { '@id': `${siteUrl}/#organization` },
+      },
+    })),
+  };
+
   return (
     <section id="services" className="relative py-24 bg-transparent border-t border-amber-500/10 z-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
       <div className="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
         
         {/* Section Header */}
@@ -191,9 +214,11 @@ export const ServicesSection: React.FC = () => {
           {NEW_SERVICES_DATA.map((service) => {
             const IconComp = getIcon(service.iconName);
             return (
-              <div
+              <button
+                type="button"
                 key={service.id}
                 onClick={() => setSelectedService(service)}
+                aria-haspopup="dialog"
                 className="group cursor-pointer rounded-xl studio-card p-6 border-gold-subtle flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1 hover:border-amber-400/50 shadow-lg"
               >
                 {/* Gold Icon */}
@@ -210,7 +235,10 @@ export const ServicesSection: React.FC = () => {
                 <p className="text-xs text-slate-400 leading-relaxed">
                   {service.shortDesc}
                 </p>
-              </div>
+                <p className="text-xs text-slate-500 leading-relaxed mt-3">
+                  {service.fullDesc}
+                </p>
+              </button>
             );
           })}
         </div>

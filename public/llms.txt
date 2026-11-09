@@ -1,0 +1,29 @@
+# Howling Heaven Studio
+
+> Howling Heaven Studio is an independent digital studio that designs and ships browser games, visual novels, character tools, and AI chat products.
+
+The studio offers visual novel production, character-driven chatbot applications, custom web development, and tailored AI solutions. Original releases run in the browser. Contact: gdulahan@gmail.com
+
+## Products
+
+- [BeastForge](https://beastforge.howlingheaven.com/): Beastman character generator and portrait studio for RPG developers. Nine species, expression morphs, gear layers, and export-ready portraits.
+- [Three Souls, One Heart](https://threesouls.howlingheaven.com/): Furry fantasy visual novel. Four chapters and an epilogue, five endings, three hearts to win.
+- [Beastmen Masseur](https://masseur.howlingheaven.com/): Cozy, body-positive massage clinic simulation and visual novel set at the Paw & Leaf Clinic in Saltmarrow Harbor.
+- [BeastBar](https://beastbar.howlingheaven.com/): Bartending simulation and visual novel at The Velvet Paw in rainy Emberwick, across a 12-night season.
+- [Combo Quest](https://combo.howlingheaven.com/): Retro browser RPG with tabletop-style storytelling, 2.5D exploration, and turn-based battles driven by WASD combo inputs.
+- [Howly.ai](https://howly.howlingheaven.com/): Persistent-memory roleplay chatbot for original characters and ongoing conversations.
+- [VideoFetcher](https://vidfetcher.howlingheaven.com/): Web tool that reads HTML5, Open Graph, JSON-LD, and streaming manifests to extract and play video streams.
+- [Fubble Rivals](https://fubble.howlingheaven.com/): Competitive bubble-shooting duel with animal champions, CPU matches, and private two-player rooms.
+
+## Services
+
+- Visual novels: branching narrative, character and scene art, choice-driven engines, audio, and cross-platform publishing. Tools include Ren'Py, Unreal Engine, Unity, and custom web frameworks.
+- Chatbot applications: character personas, long-term memory, real-time streaming interfaces, and community bots.
+- Web development: Next.js and Three.js applications, design systems, and Cloudflare deployment.
+- AI solutions: custom retrieval knowledge bases, workflow agents, API integrations, and analytics.
+
+## Pages
+
+- [Home](https://howlingheaven.com/): Studio overview, services, products, and contact.
+- [Privacy Policy](https://howlingheaven.com/privacy): How the studio handles data.
+- [Terms of Service](https://howlingheaven.com/terms): Terms for the studio and its applications.

@@ -7,6 +7,7 @@ import { HeroSection } from '@/components/sections/HeroSection';
 import { ServicesSection } from '@/components/sections/ServicesSection';
 import { ProductSection } from '@/components/sections/ProductSection';
 import { AboutSection } from '@/components/sections/AboutSection';
+import { FaqSection } from '@/components/sections/FaqSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { Footer } from '@/components/layout/Footer';
 import { ContactModal } from '@/components/ui/ContactModal';
@@ -31,16 +32,12 @@ export default function Home() {
       <div className="relative z-10">
         <Navbar onOpenContact={handleOpenContact} />
         
-        <HeroSection
-          onExploreWork={() => {
-            const el = document.getElementById('product');
-            el?.scrollIntoView({ behavior: 'smooth' });
-          }}
-        />
+        <HeroSection />
 
         <AboutSection onOpenAboutModal={handleOpenContact} />
         <ServicesSection />
         <ProductSection />
+        <FaqSection />
         <ContactSection onOpenContactModal={handleOpenContact} />
         <Footer />
       </div>
