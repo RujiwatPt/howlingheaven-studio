@@ -242,6 +242,36 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     year: '2026',
     client: 'Howling Heaven Studio',
     url: 'https://howly.howlingheaven.com/'
+  },
+  {
+    id: 'vidfetcher',
+    title: 'VideoFetcher',
+    category: 'Web Video Stream Extractor',
+    categoryKey: 'web',
+    image: '/images/vidfetcher_preview.png',
+    description: 'A modern, high-performance web tool that deeply inspects HTML tags, OpenGraph metadata, JSON-LD schemas, and streaming manifests to extract direct playable video streams and downloads.',
+    challenge: 'Detect and resolve video streams hidden across inline JavaScript configurations, dynamic player embeds, and restricted CDN endpoints with CORS and hotlink protections.',
+    solution: 'Architected a multi-strategy extraction engine featuring automated schema parsing, regex manifest scanners (.m3u8, .mpd, .mp4), in-browser HLS.js playback, and a range-supported CORS streaming proxy.',
+    impact: 'Delivers instant one-click stream diagnostics and media link extraction across thousands of video sites with zero client footprint.',
+    tags: ['Video Extractor', 'HLS.js', 'Media Tools', 'TypeScript', 'Web App'],
+    year: '2026',
+    client: 'Howling Heaven Studio',
+    url: 'https://vidfetcher.howlingheaven.com/'
+  },
+  {
+    id: 'fubble-rivals',
+    title: 'Fubble Rivals',
+    category: 'Multiplayer Bubble Battle Arcade',
+    categoryKey: 'games',
+    image: '/images/fubble_preview.png',
+    description: 'A competitive bubble-shooting survival duel featuring four animal fighters with elemental special skills, adaptive CPU matches, and real-time private 2-player rooms.',
+    challenge: 'Deliver tight, low-latency match-3 bubble shooting physics and simultaneous 2-player competitive room synchronization entirely on edge infrastructure.',
+    solution: 'Engineered responsive Canvas 2D duel arenas with dual-board state mechanics, unique champion skills (Cleave, Fireball, Pulse, Quake), and SQLite-backed Cloudflare Durable Objects for room orchestration and instant reconnects.',
+    impact: 'Provides an addictive, fast-paced arcade battle experience for both solo players and private room duels with zero install and instant browser play.',
+    tags: ['Arcade Game', 'Multiplayer Duel', 'Bubble Shooter', 'Cloudflare Workers', 'Durable Objects'],
+    year: '2026',
+    client: 'Howling Heaven Studio',
+    url: 'https://fubble.howlingheaven.com/'
   }
 ];
 

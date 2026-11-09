@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ExternalLink, Feather, MessageSquare, Globe, Heart, BookOpen, Sparkles, Palette, Layers, Sliders, Wine, Swords } from 'lucide-react';
+import { ExternalLink, Feather, MessageSquare, Globe, Heart, BookOpen, Sparkles, Palette, Layers, Sliders, Wine, Swords, Video, Search, Play, Download, Target, Zap, Users } from 'lucide-react';
 
 interface ProductItem {
   id: string;
@@ -125,6 +125,42 @@ const PRODUCTS: ProductItem[] = [
       { icon: MessageSquare, text: 'Chat with unique AI characters' },
       { icon: Globe, text: 'Immersive & memory-aware conversations' },
       { icon: Heart, text: 'Built for roleplayers, by roleplayers' },
+    ],
+  },
+  {
+    id: 'vidfetcher',
+    badge: '🐾 OUR VIDEO EXTRACTION SUITE',
+    title: 'VideoFetcher',
+    subtitle: 'Universal Web Video Stream Extractor',
+    description: 'A modern, high-performance web tool that inspects HTML5 tags, OpenGraph metadata, JSON-LD Schema, and inline streaming manifests (.m3u8, .mpd, .mp4) to extract and play video streams from any website.',
+    appUrl: 'https://vidfetcher.howlingheaven.com/',
+    ctaText: 'LAUNCH VIDEOFETCHER',
+    image: '/images/vidfetcher_preview.png',
+    imageAlt: 'VideoFetcher Universal Web Video Stream Extractor Dashboard',
+    bannerText: 'VideoFetcher Live Web Application',
+    features: [
+      { icon: Search, text: 'Multi-strategy extraction across HTML5, JSON-LD & streaming scripts' },
+      { icon: Play, text: 'Integrated HLS.js engine for instant in-browser stream playback' },
+      { icon: Download, text: 'CORS & referer-preserving streaming proxy for direct media downloads' },
+      { icon: Video, text: 'Real-time HTTP stream diagnostics & header inspection' },
+    ],
+  },
+  {
+    id: 'fubble-rivals',
+    badge: '🐾 OUR MULTIPLAYER BUBBLE DUEL',
+    title: 'Fubble Rivals',
+    subtitle: 'Bubble Battle Arcade & Survival Duel',
+    description: 'A fast-paced bubble-shooting survival duel featuring animal champions with unique elemental skills, adaptive CPU rivals, and real-time private multiplayer rooms.',
+    appUrl: 'https://fubble.howlingheaven.com/',
+    ctaText: 'PLAY FUBBLE RIVALS',
+    image: '/images/fubble_preview.png',
+    imageAlt: 'Fubble Rivals Bubble Battle Arcade Interface',
+    bannerText: 'Fubble Rivals Live Game',
+    features: [
+      { icon: Target, text: '4 animal champions with signature skills: Cleave, Fireball, Pulse & Quake' },
+      { icon: Zap, text: 'Dynamic survival duel with shared wave clocks and pressure rows' },
+      { icon: Users, text: 'Real-time 2-player private rooms backed by Cloudflare Durable Objects' },
+      { icon: Globe, text: 'Instant play HTML5 Canvas game with zero dependencies' },
     ],
   },
 ];
