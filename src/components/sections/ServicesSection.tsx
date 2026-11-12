@@ -2,10 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import Image from 'next/image';
 import { NEW_SERVICES_DATA, ServiceItem } from '@/lib/data';
 import { siteName, siteUrl } from '@/lib/site';
-import { BookOpen, MessageSquare, Code, Brain, X, CheckCircle2, ExternalLink, Sparkles } from 'lucide-react';
+import { BookOpen, MessageSquare, Code, Brain, X, CheckCircle2 } from 'lucide-react';
 
 export const ServicesSection: React.FC = () => {
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
@@ -90,54 +89,6 @@ export const ServicesSection: React.FC = () => {
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed border-b border-slate-800 pb-4">
             {selectedService.fullDesc}
           </p>
-
-          {/* Featured Work Showcase if available */}
-          {selectedService.featuredWork && (
-            <div className="rounded-xl bg-slate-900/90 border border-amber-500/30 p-4 sm:p-5 space-y-4">
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400 flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5" /> Featured Work & Case Study
-                </span>
-                <span className="text-[10px] text-slate-400 font-medium">Live Release</span>
-              </div>
-
-              <div className={`grid grid-cols-1 ${selectedService.featuredWork.image ? 'sm:grid-cols-12' : 'grid-cols-1'} gap-4 items-center`}>
-                {selectedService.featuredWork.image && (
-                  <div className="sm:col-span-5 relative aspect-video w-full rounded-lg overflow-hidden border border-amber-500/20 bg-slate-950">
-                    <Image
-                      src={selectedService.featuredWork.image}
-                      alt={selectedService.featuredWork.title}
-                      fill
-                      className="object-contain object-center"
-                    />
-                  </div>
-                )}
-
-                <div className={`${selectedService.featuredWork.image ? 'sm:col-span-7' : 'w-full'} space-y-2`}>
-                  <h4 className="text-base font-bold text-white font-serif-title">
-                    {selectedService.featuredWork.title}
-                  </h4>
-                  <p className="text-xs text-amber-300 font-medium">
-                    {selectedService.featuredWork.subtitle}
-                  </p>
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    {selectedService.featuredWork.description}
-                  </p>
-                  <div className="pt-2">
-                    <a
-                      href={selectedService.featuredWork.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow hover:scale-[1.02] transition-transform cursor-pointer"
-                    >
-                      <span>{selectedService.featuredWork.urlLabel}</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
 
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-2 flex items-center gap-1.5">
@@ -234,9 +185,6 @@ export const ServicesSection: React.FC = () => {
                 {/* Card Description */}
                 <p className="text-xs text-slate-400 leading-relaxed">
                   {service.shortDesc}
-                </p>
-                <p className="text-xs text-slate-500 leading-relaxed mt-3">
-                  {service.fullDesc}
                 </p>
               </button>
             );

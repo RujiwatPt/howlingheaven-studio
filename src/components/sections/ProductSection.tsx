@@ -252,9 +252,9 @@ export const ProductSection: React.FC = () => {
               </div>
 
               <div>
-                <p className="text-3xl sm:text-5xl font-bold text-white font-serif-title tracking-tight text-gold-gradient">
+                <h3 className="text-3xl sm:text-5xl font-bold text-white font-serif-title tracking-tight text-gold-gradient">
                   {activeProduct.title}
-                </p>
+                </h3>
                 <p className="text-sm font-semibold text-slate-300 tracking-wide mt-1">
                   {activeProduct.subtitle}
                 </p>
@@ -322,25 +322,6 @@ export const ProductSection: React.FC = () => {
 
           </div>
         </div>
-
-        <ul className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {PRODUCTS.map((product) => (
-            <li key={product.id} className="rounded-xl studio-card border-gold-subtle p-5 flex flex-col">
-              <h3 className="text-base font-bold text-white font-serif-title">{product.title}</h3>
-              <p className="text-xs text-amber-300 mt-1">{product.subtitle}</p>
-              <p className="text-xs text-slate-300 leading-relaxed mt-2 flex-1">{product.description}</p>
-              <a
-                href={product.appUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 mt-3 text-xs font-bold uppercase tracking-wider text-amber-300 hover:text-amber-200"
-              >
-                {product.ctaText}
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );

@@ -1,13 +1,3 @@
-export interface FeaturedWork {
-  title: string;
-  subtitle: string;
-  description: string;
-  image?: string;
-  url: string;
-  urlLabel: string;
-  tags: string[];
-}
-
 export interface ServiceItem {
   id: string;
   title: string;
@@ -16,7 +6,6 @@ export interface ServiceItem {
   iconName: 'Book' | 'Chat' | 'Code' | 'Brain';
   deliverables: string[];
   tools: string[];
-  featuredWork?: FeaturedWork;
 }
 
 export interface CharacterCard {
@@ -60,15 +49,6 @@ export const NEW_SERVICES_DATA: ServiceItem[] = [
     iconName: 'Book',
     deliverables: ['Branching Narrative Scripting', 'Character & Scene Art', 'Choice-Driven Engine Systems', 'Audio & Music Composition', 'Cross-Platform Publishing'],
     tools: ['RenPy', 'Unreal Engine', 'Unity', 'Custom Web VN Frameworks'],
-    featuredWork: {
-      title: 'Three Souls, One Heart',
-      subtitle: 'Furry Fantasy Visual Novel',
-      description: 'A furry fantasy visual novel. Four chapters and an epilogue, five endings, three hearts to win.',
-      image: '/images/three_souls_preview.png',
-      url: 'https://threesouls.howlingheaven.com/',
-      urlLabel: 'Play Three Souls, One Heart',
-      tags: ['Visual Novel', 'Branching Story', 'Multiple Endings', 'Web Game']
-    }
   },
   {
     id: 'chatbot-application',
@@ -78,15 +58,6 @@ export const NEW_SERVICES_DATA: ServiceItem[] = [
     iconName: 'Chat',
     deliverables: ['Character Persona Architecture', 'Long-Term Memory Engines', 'Real-Time Streaming UI', 'Community Discord/Web Bots', 'Safety & Moderation Layer'],
     tools: ['LLM Fine-Tuning', 'Vector Databases', 'WebSockets', 'Next.js', 'Python'],
-    featuredWork: {
-      title: 'Howly.ai',
-      subtitle: 'Persistent-Memory Roleplay Chatbot Platform',
-      description: 'Immersive roleplay with unique characters, rich stories, and memory-aware conversations.',
-      image: '/images/howly_ui_preview.jpg',
-      url: 'https://howly.howlingheaven.com/',
-      urlLabel: 'Launch Howly.ai',
-      tags: ['AI Chatbot', 'Next.js', 'LLM', 'Roleplay']
-    }
   },
   {
     id: 'web-development',
@@ -96,15 +67,6 @@ export const NEW_SERVICES_DATA: ServiceItem[] = [
     iconName: 'Code',
     deliverables: ['3D Web Canvas Experiences', 'Full-Stack Web App Development', 'Design System Architecture', 'Cloudflare Worker Deployment', 'SEO & CWV Optimization'],
     tools: ['Next.js', 'React', 'Three.js', 'Tailwind CSS', 'TypeScript', 'Cloudflare'],
-    featuredWork: {
-      title: 'BeastForge',
-      subtitle: 'RPG Character Generator & Portrait Studio',
-      description: 'An interactive beastman character generator with 9 distinct species, modular gear layers, expression morphs, and export-ready RPG assets.',
-      image: '/images/beastforge_preview.png',
-      url: 'https://beastforge.howlingheaven.com/',
-      urlLabel: 'Launch BeastForge',
-      tags: ['Character Studio', 'RPG Maker MV', 'Pixel Art', 'Web App']
-    }
   },
   {
     id: 'ai-solution',
